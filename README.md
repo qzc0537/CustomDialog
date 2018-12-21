@@ -26,7 +26,7 @@ implementation 'com.github.qzc0537:CustomDialog:1.0.1'
 
 3.愉快的使用：
 ```
-DialogFactory.with(MainActivity.this)
+CustomDialog.with(MainActivity.this)
                         .setLayoutId(R.layout.dialog_custom)
                         .setStyle(R.style.MyCommonDialogStyle)//默认MyCommonDialogStyle
                         .setAnimation(R.style.MyBottomInDialogAnim)//无
@@ -34,8 +34,8 @@ DialogFactory.with(MainActivity.this)
                         .setCancelable(true)//默认true
                         .setCancelOnTouchOutside(false)//默认false
                         .setWidth(0.8f)//默认80%
-                        .setHeight(DialogFactory.WRAP_CONTENT)//默认WRAP_CONTENT
-                        .createCustomDialog()
+                        .setHeight(CustomDialog.WRAP_CONTENT)
+                        .create()
                         .setText(R.id.tv_text, "立即领取")
                         .setImageResource(R.id.iv_bg, R.drawable.ic_head)
                         .setCustomClick(R.id.tv_text, new CustomDialog.CustomClickListener() {
@@ -54,5 +54,4 @@ DialogFactory.with(MainActivity.this)
                                     dialog.dismiss();
                                 }
                             }
-                        })
-                        .show();
+                        });
