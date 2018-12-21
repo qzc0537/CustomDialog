@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.qzc.customdialog.CustomDialog;
-import com.qzc.customdialog.DialogFactory;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.tv_hello).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                DialogFactory.with(MainActivity.this)
+                CustomDialog.with(MainActivity.this)
                         .setLayoutId(R.layout.dialog_custom)
                         .setStyle(R.style.MyCommonDialogStyle)//默认MyCommonDialogStyle
                         .setAnimation(R.style.MyBottomInDialogAnim)//无
@@ -28,8 +27,8 @@ public class MainActivity extends AppCompatActivity {
                         .setCancelable(true)//默认true
                         .setCancelOnTouchOutside(false)//默认false
                         .setWidth(0.8f)//默认80%
-                        .setHeight(DialogFactory.WRAP_CONTENT)//默认WRAP_CONTENT
-                        .createCustomDialog()
+                        .setHeight(CustomDialog.WRAP_CONTENT)
+                        .create()
                         .setText(R.id.tv_text, "立即领取")
                         .setImageResource(R.id.iv_bg, R.drawable.ic_head)
                         .setCustomClick(R.id.tv_text, new CustomDialog.CustomClickListener() {
@@ -48,8 +47,7 @@ public class MainActivity extends AppCompatActivity {
                                     dialog.dismiss();
                                 }
                             }
-                        })
-                        .show();
+                        });
 
             }
         });

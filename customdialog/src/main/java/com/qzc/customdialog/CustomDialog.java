@@ -1,8 +1,12 @@
 package com.qzc.customdialog;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
+import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -16,13 +20,14 @@ import android.widget.TextView;
  */
 public class CustomDialog extends BaseDialog implements View.OnClickListener {
 
-    private CustomDialog(DialogFactory.Builder builder) {
+    private CustomDialog(Builder builder) {
         super(builder);
     }
 
-    public static CustomDialog getInstance(DialogFactory.Builder builder) {
-        return new CustomDialog(builder);
+    public static Builder with(Activity context) {
+        return new Builder(context);
     }
+
 
     public CustomDialog setText(int resId, CharSequence text) {
         View view = findViewById(resId);
@@ -162,6 +167,126 @@ public class CustomDialog extends BaseDialog implements View.OnClickListener {
 
     public interface CustomCheckBoxListener {
         void onCustomCheckedChange(CompoundButton buttonView, boolean isChecked, DialogInterface dialog);
+    }
+
+
+    public static class Builder extends BaseBuilder {
+
+        Builder(Activity context) {
+            super(context);
+        }
+
+        @Override
+        public Context getContext() {
+            return context;
+        }
+
+        @Override
+        public Builder setLayoutId(int layoutId) {
+            this.layoutId = layoutId;
+            return this;
+        }
+
+        @Override
+        public int getLayoutId() {
+            return layoutId;
+        }
+
+        @Override
+        public Builder setStyle(int style) {
+            this.style = style;
+            return this;
+        }
+
+        @Override
+        public int getStyle() {
+            return style;
+        }
+
+        @Override
+        public Builder setAnimation(int anim) {
+            this.animation = anim;
+            return this;
+        }
+
+        @Override
+        public int getAnimation() {
+            return animation;
+        }
+
+        @Override
+        public Builder setGravity(int gravity) {
+            this.gravity = gravity;
+            return this;
+        }
+
+        @Override
+        public int getGravity() {
+            return gravity;
+        }
+
+        @Override
+        public Builder setWidth(int width) {
+            this.width = width;
+            return this;
+        }
+
+        @Override
+        public Builder setWidth(float percent) {
+            this.width = (int) (getContext().getResources().getDisplayMetrics().widthPixels * percent);
+            return this;
+        }
+
+        @Override
+        public int getWidth() {
+            return width;
+        }
+
+        @Override
+        public Builder setHeight(int height) {
+            this.height = height;
+            return this;
+        }
+
+        @Override
+        public Builder setHeight(float percent) {
+            this.height = (int) (getContext().getResources().getDisplayMetrics().heightPixels * percent);
+            return this;
+        }
+
+        @Override
+        public int getHeight() {
+            return height;
+        }
+
+        @Override
+        public Builder setCancelable(boolean cancelable) {
+            this.isCancelable = cancelable;
+            return this;
+        }
+
+        @Override
+        public boolean getCancelable() {
+            return isCancelable;
+        }
+
+        @Override
+        public Builder setCancelOnTouchOutside(boolean cancelOnTouchOutside) {
+            this.isCancelOnTouchOutside = cancelOnTouchOutside;
+            return this;
+        }
+
+        @Override
+        public boolean getCancelOnTouchOutside() {
+            return isCancelOnTouchOutside;
+        }
+
+        @Override
+        public CustomDialog create() {
+            CustomDialog dialog = new CustomDialog(this);
+            dialog.show();
+            return dialog;
+        }
     }
 
 

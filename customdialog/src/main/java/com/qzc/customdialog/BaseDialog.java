@@ -3,16 +3,18 @@ package com.qzc.customdialog;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.view.Window;
+import android.view.WindowManager;
 
 /**
  * @author Administrator
  * created at 2018/12/19 0019 17:56
  */
 public abstract class BaseDialog extends Dialog {
+    public static final int MATCH_PARENT = WindowManager.LayoutParams.MATCH_PARENT;
+    public static final int WRAP_CONTENT = WindowManager.LayoutParams.WRAP_CONTENT;
+    protected BaseBuilder builder;
 
-    protected DialogFactory.Builder builder;
-
-    public BaseDialog(DialogFactory.Builder builder) {
+    public BaseDialog(CustomDialog.Builder builder) {
         super(builder.getContext(), builder.getStyle());
         this.builder = builder;
         init();
@@ -36,7 +38,7 @@ public abstract class BaseDialog extends Dialog {
         window.setGravity(builder.getGravity());
         window.getAttributes().width = builder.getWidth();
         window.getAttributes().height = builder.getHeight();
-        if (builder.getAnimation() != 0){
+        if (builder.getAnimation() != 0) {
             window.setWindowAnimations(builder.getAnimation());
         }
         setCancelable(builder.getCancelable());
