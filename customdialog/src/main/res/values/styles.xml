@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="BaseDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+    </style>
+
+    <style name="BackgroundDimEnable" parent="BaseDialog">
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <style name="BackgroundDimDisable" parent="BaseDialog">
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
+    <style name="MyCommonDialogStyle" parent="BackgroundDimEnable"/>
+
+    <style name="MyTopInDialogAnim" parent="BaseDialog">
+        <item name="android:windowEnterAnimation">@anim/in_from_top</item>
+        <item name="android:windowExitAnimation">@anim/out_to_top</item>
+    </style>
+
+    <style name="MyBottomInDialogAnim" parent="BaseDialog">
+        <item name="android:windowEnterAnimation">@anim/in_from_bottom</item>
+        <item name="android:windowExitAnimation">@anim/out_to_bottom</item>
+    </style>
+
+    <style name="MyLeftInDialogAnim" parent="BaseDialog">
+        <item name="android:windowEnterAnimation">@anim/in_from_left</item>
+        <item name="android:windowExitAnimation">@anim/out_to_left</item>
+    </style>
+
+    <style name="MyRightInDialogAnim" parent="BaseDialog">
+        <item name="android:windowEnterAnimation">@anim/in_from_right</item>
+        <item name="android:windowExitAnimation">@anim/out_to_right</item>
+    </style>
+</resources>
