@@ -4,8 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -14,11 +17,17 @@ import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static android.view.View.NO_ID;
+
 /**
  * @author Administrator
  * created at 2018/12/21 0021 10:46
  */
 public class CustomDialog extends BaseDialog implements View.OnClickListener {
+    private final String TAG = this.getClass().getSimpleName();
 
     private CustomDialog(Builder builder) {
         super(builder);
@@ -28,6 +37,57 @@ public class CustomDialog extends BaseDialog implements View.OnClickListener {
         return new Builder(context);
     }
 
+    @Override
+    protected void initView() {
+
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void initEvent() {
+        View view = LayoutInflater.from(builder.getContext().getApplicationContext())
+                .inflate(builder.getLayoutId(), null);
+        getAllChildViews(view);
+    }
+
+    /**
+     * 遍历所有子view
+     *
+     * @param view
+     * @return
+     */
+    private List<View> getAllChildViews(View view) {
+        List<View> allChildren = new ArrayList<View>();
+        if (view instanceof ViewGroup) {
+            ViewGroup viewGroup = (ViewGroup) view;
+            for (int i = 0; i < viewGroup.getChildCount(); i++) {
+                View child = viewGroup.getChildAt(i);
+                if (child instanceof View) {
+                    child.setClickable(true);
+                    if (child.getId() != NO_ID) {
+                        findViewById(child.getId()).setOnClickListener(this);
+//                        Log.i(TAG, child.getClass().getSimpleName()
+//                                + "->is not ViewGroup, setOnClick! id: " + child.getId());
+                    }
+                }
+                allChildren.add(child);
+                //再次调用本身（递归）
+                allChildren.addAll(getAllChildViews(child));
+            }
+        }
+        return allChildren;
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (customClicksListener != null) {
+            customClicksListener.onCustomClicks(v, CustomDialog.this);
+        }
+    }
 
     public CustomDialog setText(int resId, CharSequence text) {
         View view = findViewById(resId);
@@ -85,6 +145,12 @@ public class CustomDialog extends BaseDialog implements View.OnClickListener {
         return this;
     }
 
+    public CustomDialog setVisibility(int resId, int visibility) {
+        View view = findViewById(resId);
+        view.setVisibility(visibility);
+        return this;
+    }
+
     public CustomDialog setCustomClick(int resId, CustomClickListener listener) {
         this.customClickListener = listener;
         View view = findViewById(resId);
@@ -99,6 +165,10 @@ public class CustomDialog extends BaseDialog implements View.OnClickListener {
         return this;
     }
 
+    @Deprecated()
+    /**
+     * 已经帮你添加点击事件了，直接用setCustomClicks(CustomClicksListener listener)
+     */
     public CustomDialog setCustomClicks(int... ids) {
         for (int id : ids) {
             findViewById(id).setOnClickListener(this);
@@ -111,7 +181,8 @@ public class CustomDialog extends BaseDialog implements View.OnClickListener {
         return this;
     }
 
-    public CustomDialog setCustomRadioGroupListener(int resId, CustomRadioGroupListener listener) {
+    public CustomDialog setCustomRadioGroupListener(int resId, CustomRadioGroupListener
+            listener) {
         this.customRadioGroupListener = listener;
         RadioGroup radioGroup = findViewById(resId);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -137,13 +208,6 @@ public class CustomDialog extends BaseDialog implements View.OnClickListener {
             }
         });
         return this;
-    }
-
-    @Override
-    public void onClick(View v) {
-        if (customClicksListener != null) {
-            customClicksListener.onCustomClicks(v, CustomDialog.this);
-        }
     }
 
 

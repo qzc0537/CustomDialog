@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
                                 toast("立即领取");
                             }
                         })
-                        .setCustomClicks(R.id.iv_bg, R.id.iv_close)
                         .setCustomClicks(new CustomDialog.CustomClicksListener() {
                             @Override
                             public void onCustomClicks(View view, DialogInterface dialog) {
