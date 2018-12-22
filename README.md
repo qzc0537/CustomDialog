@@ -21,7 +21,7 @@ allprojects {
 2.app build.gradle下添加依赖 ：
 
 ```
-implementation 'com.github.qzc0537:CustomDialog:1.0.3'
+implementation 'com.github.qzc0537:CustomDialog:1.0.4'
 ```
 
 3.愉快的使用：
@@ -44,7 +44,6 @@ CustomDialog.with(MainActivity.this)
                                 toast("立即领取");
                             }
                         })
-                        .setCustomClicks(R.id.iv_bg, R.id.iv_close)
                         .setCustomClicks(new CustomDialog.CustomClicksListener() {
                             @Override
                             public void onCustomClicks(View view, DialogInterface dialog) {
