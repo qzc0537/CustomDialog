@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
                 CustomDialog.with(MainActivity.this)
                         .setLayoutId(R.layout.dialog_custom)
                         .setStyle(R.style.MyCommonDialogStyle)//默认MyCommonDialogStyle
-                        .setAnimation(R.style.MyBottomInDialogAnim)//无
+                        .setAnimation(CustomDialog.BOTTOM_IN)
                         .setGravity(Gravity.CENTER)//默认CENTER
                         .setCancelable(true)//默认true
                         .setCancelOnTouchOutside(false)//默认false

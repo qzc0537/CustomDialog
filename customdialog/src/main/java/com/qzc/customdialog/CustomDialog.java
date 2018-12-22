@@ -205,7 +205,11 @@ public class CustomDialog extends BaseDialog implements View.OnClickListener {
 
         @Override
         public Builder setAnimation(int anim) {
-            this.animation = anim;
+            if (anim == TOP_IN) this.animation = R.style.MyTopInDialogAnim;
+            else if (anim == BOTTOM_IN) this.animation = R.style.MyBottomInDialogAnim;
+            else if (anim == LEFT_IN) this.animation = R.style.MyLeftInDialogAnim;
+            else if (anim == RIGHT_IN) this.animation = R.style.MyRightInDialogAnim;
+            else this.animation = anim;
             return this;
         }
 

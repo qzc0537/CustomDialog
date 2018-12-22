@@ -12,6 +12,10 @@ import android.view.WindowManager;
 public abstract class BaseDialog extends Dialog {
     public static final int MATCH_PARENT = WindowManager.LayoutParams.MATCH_PARENT;
     public static final int WRAP_CONTENT = WindowManager.LayoutParams.WRAP_CONTENT;
+    public static final int TOP_IN = 100;
+    public static final int BOTTOM_IN = 101;
+    public static final int LEFT_IN = 102;
+    public static final int RIGHT_IN = 103;
     protected BaseBuilder builder;
 
     public BaseDialog(CustomDialog.Builder builder) {
