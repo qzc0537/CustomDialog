@@ -38,23 +38,17 @@ public abstract class BaseBuilder {
 
     public abstract int getGravity();
 
-    public abstract BaseBuilder setWidth(int width);
+    public abstract BaseBuilder setWidthHeight(int width, int height);
 
-    public abstract BaseBuilder setWidth(float percent);
+    public abstract BaseBuilder setWidthHeight(float width, float height);
 
     public abstract int getWidth();
 
-    public abstract BaseBuilder setHeight(int height);
-
-    public abstract BaseBuilder setHeight(float percent);
-
     public abstract int getHeight();
 
-    public abstract BaseBuilder setCancelable(boolean cancelable);
+    public abstract BaseBuilder setCancelStrategy(boolean cancelable, boolean cancelOnTouchOutside);
 
     public abstract boolean getCancelable();
-
-    public abstract BaseBuilder setCancelOnTouchOutside(boolean cancelOnTouchOutside);
 
     public abstract boolean getCancelOnTouchOutside();
 

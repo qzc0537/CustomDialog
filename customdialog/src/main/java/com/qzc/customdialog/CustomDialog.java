@@ -294,14 +294,16 @@ public class CustomDialog extends BaseDialog implements View.OnClickListener {
         }
 
         @Override
-        public Builder setWidth(int width) {
+        public Builder setWidthHeight(int width, int height) {
             this.width = width;
+            this.height = height;
             return this;
         }
 
         @Override
-        public Builder setWidth(float percent) {
-            this.width = (int) (getContext().getResources().getDisplayMetrics().widthPixels * percent);
+        public Builder setWidthHeight(float width, float height) {
+            this.width = (int) (getContext().getResources().getDisplayMetrics().widthPixels * width);
+            this.height = (int) (getContext().getResources().getDisplayMetrics().heightPixels * height);
             return this;
         }
 
@@ -311,37 +313,20 @@ public class CustomDialog extends BaseDialog implements View.OnClickListener {
         }
 
         @Override
-        public Builder setHeight(int height) {
-            this.height = height;
-            return this;
-        }
-
-        @Override
-        public Builder setHeight(float percent) {
-            this.height = (int) (getContext().getResources().getDisplayMetrics().heightPixels * percent);
-            return this;
-        }
-
-        @Override
         public int getHeight() {
             return height;
         }
 
         @Override
-        public Builder setCancelable(boolean cancelable) {
+        public BaseBuilder setCancelStrategy(boolean cancelable, boolean cancelOnTouchOutside) {
             this.isCancelable = cancelable;
+            this.isCancelOnTouchOutside = cancelOnTouchOutside;
             return this;
         }
 
         @Override
         public boolean getCancelable() {
             return isCancelable;
-        }
-
-        @Override
-        public Builder setCancelOnTouchOutside(boolean cancelOnTouchOutside) {
-            this.isCancelOnTouchOutside = cancelOnTouchOutside;
-            return this;
         }
 
         @Override

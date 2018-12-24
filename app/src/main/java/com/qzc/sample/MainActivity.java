@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
                         .setGravity(Gravity.CENTER)//默认CENTER
                         .setCancelable(true)//默认true
                         .setCancelOnTouchOutside(false)//默认false
-                        .setWidth(0.8f)//默认80%
+                        .setWidthHeight(0.8f)//默认80%
                         .setHeight(CustomDialog.WRAP_CONTENT)
                         .create()
                         .setText(R.id.tv_text, "立即领取")
