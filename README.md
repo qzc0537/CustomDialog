@@ -31,10 +31,8 @@ CustomDialog.with(MainActivity.this)
                         .setStyle(R.style.MyCommonDialogStyle)//默认MyCommonDialogStyle
                         .setAnimation(CustomDialog.BOTTOM_IN)
                         .setGravity(Gravity.CENTER)//默认CENTER
-                        .setCancelable(true)//默认true
-                        .setCancelOnTouchOutside(false)//默认false
-                        .setWidth(0.8f)//默认80%
-                        .setHeight(CustomDialog.WRAP_CONTENT)
+                        .setWidthHeight(0.8f, CustomDialog.WRAP_CONTENT)//默认80%
+                        .setCancelStrategy(true, false)//默认true,false
                         .create()
                         .setText(R.id.tv_text, "立即领取")
                         .setImageResource(R.id.iv_bg, R.drawable.ic_head)
