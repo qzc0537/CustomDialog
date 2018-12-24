@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -90,6 +92,7 @@ public class CustomDialog extends BaseDialog implements View.OnClickListener {
     }
 
     public CustomDialog setText(int resId, CharSequence text) {
+        if (TextUtils.isEmpty(text)) return this;
         View view = findViewById(resId);
         if (view instanceof TextView) {
             ((TextView) view).setText(text);
@@ -102,14 +105,7 @@ public class CustomDialog extends BaseDialog implements View.OnClickListener {
     }
 
     public CustomDialog setText(int resId, int text) {
-        View view = findViewById(resId);
-        if (view instanceof TextView) {
-            ((TextView) view).setText(text);
-        } else if (view instanceof Button) {
-            ((Button) view).setText(text);
-        } else if (view instanceof CompoundButton) {
-            ((CompoundButton) view).setText(text);
-        }
+        setText(resId, builder.getContext().getString(text));
         return this;
     }
 
