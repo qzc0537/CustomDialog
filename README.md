@@ -28,7 +28,7 @@ implementation 'com.github.qzc0537:CustomDialog:1.0.6'
 ```
 CustomDialog.with(MainActivity.this)
                         .setLayoutId(R.layout.dialog_custom)
-                        .setWidthHeight(0.8f, CustomDialog.WRAP_CONTENT)//默认80%
+                        .setWidthHeight(0.8f, CustomDialog.WRAP_CONTENT)//默认80%,WRAP_CONTENT
                         .setGravity(Gravity.CENTER)//默认CENTER
                         .setAnimation(CustomDialog.SCALE_LEFT_IN)
                         .setBackgroundDimEnabled(true)//默认true
