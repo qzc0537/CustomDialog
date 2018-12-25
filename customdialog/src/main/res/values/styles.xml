@@ -11,15 +11,13 @@
         <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
     </style>
 
-    <style name="BackgroundDimEnable" parent="BaseDialog">
+    <style name="BackgroundDimEnabled" parent="BaseDialog">
         <item name="android:backgroundDimEnabled">true</item>
     </style>
 
-    <style name="BackgroundDimDisable" parent="BaseDialog">
+    <style name="BackgroundDimDisabled" parent="BaseDialog">
         <item name="android:backgroundDimEnabled">false</item>
     </style>
-
-    <style name="MyCommonDialogStyle" parent="BackgroundDimEnable"/>
 
     <style name="MyTopInDialogAnim" parent="BaseDialog">
         <item name="android:windowEnterAnimation">@anim/in_from_top</item>
@@ -40,4 +38,51 @@
         <item name="android:windowEnterAnimation">@anim/in_from_right</item>
         <item name="android:windowExitAnimation">@anim/out_to_right</item>
     </style>
+
+    <style name="MyAlphaInDialogAnim" parent="BaseDialog">
+        <item name="android:windowEnterAnimation">@anim/in_from_alpha</item>
+        <item name="android:windowExitAnimation">@anim/out_to_alpha</item>
+    </style>
+
+    <style name="MyScaleTopInDialogAnim" parent="BaseDialog">
+        <item name="android:windowEnterAnimation">@anim/scale_top_in</item>
+        <item name="android:windowExitAnimation">@anim/scale_top_out</item>
+    </style>
+
+    <style name="MyScaleLeftInDialogAnim" parent="BaseDialog">
+        <item name="android:windowEnterAnimation">@anim/scale_left_in</item>
+        <item name="android:windowExitAnimation">@anim/scale_left_out</item>
+    </style>
+
+    <style name="MyScaleRightInDialogAnim" parent="BaseDialog">
+        <item name="android:windowEnterAnimation">@anim/scale_right_in</item>
+        <item name="android:windowExitAnimation">@anim/scale_right_out</item>
+    </style>
+
+    <style name="MyScaleBottomInDialogAnim" parent="BaseDialog">
+        <item name="android:windowEnterAnimation">@anim/scale_bottom_in</item>
+        <item name="android:windowExitAnimation">@anim/scale_bottom_out</item>
+    </style>
+
+    <style name="MyScaleLeftTopInDialogAnim" parent="BaseDialog">
+        <item name="android:windowEnterAnimation">@anim/scale_left_top_in</item>
+        <item name="android:windowExitAnimation">@anim/scale_left_top_out</item>
+    </style>
+
+    <style name="MyScaleRightTopInDialogAnim" parent="BaseDialog">
+        <item name="android:windowEnterAnimation">@anim/scale_right_top_in</item>
+        <item name="android:windowExitAnimation">@anim/scale_right_top_out</item>
+    </style>
+
+    <style name="MyScaleLeftBottomInDialogAnim" parent="BaseDialog">
+        <item name="android:windowEnterAnimation">@anim/scale_left_bottom_in</item>
+        <item name="android:windowExitAnimation">@anim/scale_left_bottom_out</item>
+    </style>
+
+    <style name="MyScaleRightBottomInDialogAnim" parent="BaseDialog">
+        <item name="android:windowEnterAnimation">@anim/scale_right_bottom_in</item>
+        <item name="android:windowExitAnimation">@anim/scale_right_bottom_out</item>
+    </style>
+
+
 </resources>

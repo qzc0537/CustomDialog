@@ -8,11 +8,12 @@ import android.view.WindowManager;
 public abstract class BaseBuilder {
     protected Activity context;
     protected int layoutId;
-    protected int style = R.style.MyCommonDialogStyle;
+    protected int style = R.style.BackgroundDimEnabled;
     protected int animation;
     protected int gravity = Gravity.CENTER;
     protected int width = (int) (WindowManager.LayoutParams.MATCH_PARENT * 0.8);
     protected int height = WindowManager.LayoutParams.WRAP_CONTENT;
+    protected boolean backgroundDimEnable = true;
     protected boolean isCancelable = true;
     protected boolean isCancelOnTouchOutside = false;
 
@@ -28,6 +29,10 @@ public abstract class BaseBuilder {
 
     public abstract BaseBuilder setStyle(int style);
 
+    public abstract BaseBuilder setBackgroundDimEnabled(boolean enabled);
+
+    public abstract boolean getBackgroundDimEnabled();
+
     public abstract int getStyle();
 
     public abstract BaseBuilder setAnimation(int anim);
@@ -41,6 +46,10 @@ public abstract class BaseBuilder {
     public abstract BaseBuilder setWidthHeight(int width, int height);
 
     public abstract BaseBuilder setWidthHeight(float width, float height);
+
+    public abstract BaseBuilder setWidthHeight(int width, float height);
+
+    public abstract BaseBuilder setWidthHeight(float width, int height);
 
     public abstract int getWidth();
 

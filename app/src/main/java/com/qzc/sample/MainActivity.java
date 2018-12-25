@@ -21,11 +21,11 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(final View v) {
                 CustomDialog.with(MainActivity.this)
                         .setLayoutId(R.layout.dialog_custom)
-                        .setStyle(R.style.MyCommonDialogStyle)//默认MyCommonDialogStyle
-                        .setAnimation(CustomDialog.BOTTOM_IN)
-                        .setGravity(Gravity.CENTER)//默认CENTER
                         .setWidthHeight(0.8f, CustomDialog.WRAP_CONTENT)//默认80%
-                        .setCancelStrategy(true, false)//默认true,false
+                        .setGravity(Gravity.CENTER)//默认CENTER
+                        .setAnimation(CustomDialog.SCALE_LEFT_IN)
+                        .setBackgroundDimEnabled(true)//默认true
+                        .setCancelStrategy(true, true)//默认true,false
                         .create()
                         .setText(R.id.tv_text, "立即领取")
                         .setImageResource(R.id.iv_bg, R.drawable.ic_head)

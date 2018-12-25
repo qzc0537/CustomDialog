@@ -5,17 +5,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -259,8 +255,24 @@ public class CustomDialog extends BaseDialog implements View.OnClickListener {
         }
 
         @Override
+        public BaseBuilder setBackgroundDimEnabled(boolean enabled) {
+            this.backgroundDimEnable = enabled;
+            return this;
+        }
+
+        @Override
+        public boolean getBackgroundDimEnabled() {
+            return backgroundDimEnable;
+        }
+
+        @Override
         public int getStyle() {
-            return style;
+            if (style != 0) {
+                return style;
+            } else {
+                if (backgroundDimEnable) return R.style.BackgroundDimEnabled;
+                else return R.style.BackgroundDimDisabled;
+            }
         }
 
         @Override
@@ -269,7 +281,21 @@ public class CustomDialog extends BaseDialog implements View.OnClickListener {
             else if (anim == BOTTOM_IN) this.animation = R.style.MyBottomInDialogAnim;
             else if (anim == LEFT_IN) this.animation = R.style.MyLeftInDialogAnim;
             else if (anim == RIGHT_IN) this.animation = R.style.MyRightInDialogAnim;
-            else this.animation = anim;
+            else if (anim == ALPHA_IN) this.animation = R.style.MyAlphaInDialogAnim;
+            else if (anim == SCALE_TOP_IN) this.animation = R.style.MyScaleTopInDialogAnim;
+            else if (anim == SCALE_LEFT_IN) this.animation = R.style.MyScaleLeftInDialogAnim;
+            else if (anim == SCALE_RIGHT_IN) this.animation = R.style.MyScaleRightInDialogAnim;
+            else if (anim == SCALE_BOTTOM_IN) this.animation = R.style.MyScaleBottomInDialogAnim;
+            else if (anim == SCALE_LEFT_TOP_IN)
+                this.animation = R.style.MyScaleLeftTopInDialogAnim;
+            else if (anim == SCALE_RIGHT_TOP_IN)
+                this.animation = R.style.MyScaleRightTopInDialogAnim;
+            else if (anim == SCALE_LEFT_BOTTOM_IN)
+                this.animation = R.style.MyScaleLeftBottomInDialogAnim;
+            else if (anim == SCALE_RIGHT_BOTTOM_IN)
+                this.animation = R.style.MyScaleRightBottomInDialogAnim;
+            else
+                this.animation = anim;
             return this;
         }
 
@@ -300,6 +326,20 @@ public class CustomDialog extends BaseDialog implements View.OnClickListener {
         public Builder setWidthHeight(float width, float height) {
             this.width = (int) (getContext().getResources().getDisplayMetrics().widthPixels * width);
             this.height = (int) (getContext().getResources().getDisplayMetrics().heightPixels * height);
+            return this;
+        }
+
+        @Override
+        public BaseBuilder setWidthHeight(int width, float height) {
+            this.width = width;
+            this.height = (int) (getContext().getResources().getDisplayMetrics().heightPixels * height);
+            return this;
+        }
+
+        @Override
+        public BaseBuilder setWidthHeight(float width, int height) {
+            this.width = (int) (getContext().getResources().getDisplayMetrics().widthPixels * width);
+            this.height = height;
             return this;
         }
 
