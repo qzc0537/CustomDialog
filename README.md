@@ -3,6 +3,9 @@
 
 [![](https://jitpack.io/v/qzc0537/CustomDialog.svg)](https://jitpack.io/#qzc0537/CustomDialog)
 
+![新垣结衣](https://github.com/qzc0537/CustomDialog/blob/master/Screenshot_2018-12-26-19-55-05.png)
+
+
 使用
 --
 1.project build.gradle下添加：
@@ -21,34 +24,30 @@ allprojects {
 2.app build.gradle下添加依赖 ：
 
 ```
-implementation 'com.github.qzc0537:CustomDialog:1.0.5'
+implementation 'com.github.qzc0537:CustomDialog:1.0.6'
 ```
 
 3.愉快的使用：
 ```
 CustomDialog.with(MainActivity.this)
                         .setLayoutId(R.layout.dialog_custom)
-                        .setStyle(R.style.MyCommonDialogStyle)//默认MyCommonDialogStyle
-                        .setAnimation(CustomDialog.BOTTOM_IN)
+                        .setWidthHeight(0.8f, CustomDialog.WRAP_CONTENT)//默认80%,WRAP_CONTENT
                         .setGravity(Gravity.CENTER)//默认CENTER
-                        .setWidthHeight(0.8f, CustomDialog.WRAP_CONTENT)//默认80%
-                        .setCancelStrategy(true, false)//默认true,false
+                        .setAnimation(CustomDialog.ALPHA_IN)
+                        .setBackgroundDimEnabled(true)//默认true
+                        .setCancelStrategy(true, true)//默认true,false
                         .create()
-                        .setText(R.id.tv_text, "立即领取")
-                        .setImageResource(R.id.iv_bg, R.drawable.ic_head)
-                        .setCustomClick(R.id.tv_text, new CustomDialog.CustomClickListener() {
+                        .setText(R.id.btn_confirm, "领取")
+                        .setCustomClick(R.id.iv_beauty, new CustomDialog.CustomClickListener() {
                             @Override
                             public void onCustomClick(View view, DialogInterface dialog) {
-                                toast("立即领取");
+                                toast("新垣结衣~");
                             }
                         })
                         .setCustomClicks(new CustomDialog.CustomClicksListener() {
                             @Override
                             public void onCustomClicks(View view, DialogInterface dialog) {
-                                if (view.getId() == R.id.iv_bg) {
-                                    toast("id: " + view.getId());
-                                } else if (view.getId() == R.id.iv_close) {
-                                    dialog.dismiss();
-                                }
+                                dialog.dismiss();
+                                toast(((TextView) view).getText().toString());
                             }
                         });
