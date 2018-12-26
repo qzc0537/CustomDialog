@@ -3,7 +3,7 @@
 
 [![](https://jitpack.io/v/qzc0537/CustomDialog.svg)](https://jitpack.io/#qzc0537/CustomDialog)
 
-![新垣结衣](https://github.com/qzc0537/CustomDialog/blob/master/)
+![新垣结衣](https://github.com/qzc0537/CustomDialog/blob/master/Screenshot_2018-12-26-19-55-05.png)
 
 
 使用
