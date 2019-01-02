@@ -3,7 +3,7 @@
 
 [![](https://jitpack.io/v/qzc0537/CustomDialog.svg)](https://jitpack.io/#qzc0537/CustomDialog)
 
-![新垣结衣](https://github.com/qzc0537/CustomDialog/blob/master/Screenshot_2018-12-26-19-55-05.png)
+![新垣结衣](https://github.com/qzc0537/CustomDialog/blob/master/Screenshot_2019-01-02-15-43-27.png)
 
 
 使用
@@ -24,16 +24,17 @@ allprojects {
 2.app build.gradle下添加依赖 ：
 
 ```
-implementation 'com.github.qzc0537:CustomDialog:1.0.7'
+implementation 'com.github.qzc0537:CustomDialog:1.0.8'
 ```
 
 3.愉快的使用：
 ```
-CustomDialog.with(MainActivity.this)
+                int anim = new Random().nextInt(1013 - 1001 + 1) + 1001;
+                CustomDialog.with(MainActivity.this)
                         .setLayoutId(R.layout.dialog_custom)
                         .setWidthHeight(0.8f, CustomDialog.WRAP_CONTENT)//默认80%,WRAP_CONTENT
                         .setGravity(Gravity.CENTER)//默认CENTER
-                        .setAnimation(CustomDialog.ALPHA_IN)
+                        .setAnimation(anim)
                         .setBackgroundDimEnabled(true)//默认true
                         .setCancelStrategy(true, true)//默认true,false
                         .create()
