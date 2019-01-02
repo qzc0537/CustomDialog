@@ -12,19 +12,19 @@ import android.view.WindowManager;
 public abstract class BaseDialog extends Dialog {
     public static final int MATCH_PARENT = WindowManager.LayoutParams.MATCH_PARENT;
     public static final int WRAP_CONTENT = WindowManager.LayoutParams.WRAP_CONTENT;
-    public static final int TOP_IN = 1000;
-    public static final int BOTTOM_IN = 1001;
-    public static final int LEFT_IN = 1002;
-    public static final int RIGHT_IN = 1003;
-    public static final int ALPHA_IN = 1004;
+    public static final int TOP_IN = 1001;
+    public static final int BOTTOM_IN = 1002;
+    public static final int LEFT_IN = 1003;
+    public static final int RIGHT_IN = 1004;
+    public static final int ALPHA_IN = 1005;
     public static final int SCALE_TOP_IN = 1006;
     public static final int SCALE_LEFT_IN = 1007;
     public static final int SCALE_RIGHT_IN = 1008;
     public static final int SCALE_BOTTOM_IN = 1009;
-    public static final int SCALE_LEFT_TOP_IN = 10010;
-    public static final int SCALE_RIGHT_TOP_IN = 10011;
-    public static final int SCALE_LEFT_BOTTOM_IN = 10012;
-    public static final int SCALE_RIGHT_BOTTOM_IN = 10013;
+    public static final int SCALE_LEFT_TOP_IN = 1010;
+    public static final int SCALE_RIGHT_TOP_IN = 1011;
+    public static final int SCALE_LEFT_BOTTOM_IN = 1012;
+    public static final int SCALE_RIGHT_BOTTOM_IN = 1013;
     protected BaseBuilder builder;
 
     public BaseDialog(CustomDialog.Builder builder) {

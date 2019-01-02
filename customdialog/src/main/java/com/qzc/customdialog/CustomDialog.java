@@ -157,17 +157,6 @@ public class CustomDialog extends BaseDialog implements View.OnClickListener {
         return this;
     }
 
-    @Deprecated()
-    /**
-     * 已经帮你添加点击事件了，直接用setCustomClicks(CustomClicksListener listener)
-     */
-    public CustomDialog setCustomClicks(int... ids) {
-        for (int id : ids) {
-            findViewById(id).setOnClickListener(this);
-        }
-        return this;
-    }
-
     public CustomDialog setCustomClicks(CustomClicksListener listener) {
         this.customClicksListener = listener;
         return this;
@@ -270,7 +259,7 @@ public class CustomDialog extends BaseDialog implements View.OnClickListener {
             if (style != 0) {
                 return style;
             } else {
-                if (backgroundDimEnable) return R.style.BackgroundDimEnabled;
+                if (getBackgroundDimEnabled()) return R.style.BackgroundDimEnabled;
                 else return R.style.BackgroundDimDisabled;
             }
         }

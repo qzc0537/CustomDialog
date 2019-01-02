@@ -10,6 +10,8 @@ import android.widget.Toast;
 
 import com.qzc.customdialog.CustomDialog;
 
+import java.util.Random;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -20,11 +22,12 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.tv_hello).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
+                int anim = new Random().nextInt(1013 - 1001 + 1) + 1001;
                 CustomDialog.with(MainActivity.this)
                         .setLayoutId(R.layout.dialog_custom)
                         .setWidthHeight(0.8f, CustomDialog.WRAP_CONTENT)//默认80%,WRAP_CONTENT
                         .setGravity(Gravity.CENTER)//默认CENTER
-                        .setAnimation(CustomDialog.ALPHA_IN)
+                        .setAnimation(anim)
                         .setBackgroundDimEnabled(true)//默认true
                         .setCancelStrategy(true, true)//默认true,false
                         .create()

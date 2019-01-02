@@ -29,11 +29,11 @@ public abstract class BaseBuilder {
 
     public abstract BaseBuilder setStyle(int style);
 
+    public abstract int getStyle();
+
     public abstract BaseBuilder setBackgroundDimEnabled(boolean enabled);
 
     public abstract boolean getBackgroundDimEnabled();
-
-    public abstract int getStyle();
 
     public abstract BaseBuilder setAnimation(int anim);
 
