@@ -24,7 +24,7 @@ allprojects {
 2.app build.gradle下添加依赖 ：
 
 ```
-implementation 'com.github.qzc0537:CustomDialog:1.0.8'
+implementation 'com.github.qzc0537:CustomDialog:1.0.9'
 ```
 
 3.愉快的使用：
@@ -39,16 +39,29 @@ implementation 'com.github.qzc0537:CustomDialog:1.0.8'
                         .setCancelStrategy(true, true)//默认true,false
                         .create()
                         .setText(R.id.btn_confirm, "领取")
-                        .setCustomClick(R.id.iv_beauty, new CustomDialog.CustomClickListener() {
+                        .setCustomClick(R.id.btn_cancel, new CustomDialog.CustomClickListener() {
                             @Override
                             public void onCustomClick(View view, DialogInterface dialog) {
-                                toast("新垣结衣~");
+                                dialog.dismiss();
+                                toast("取消");
+                            }
+                        })
+                        .setCustomClick(R.id.btn_confirm, new CustomDialog.CustomClickListener() {
+                            @Override
+                            public void onCustomClick(View view, DialogInterface dialog) {
+                                dialog.dismiss();
+                                toast("确定");
                             }
                         })
                         .setCustomClicks(new CustomDialog.CustomClicksListener() {
                             @Override
                             public void onCustomClicks(View view, DialogInterface dialog) {
-                                dialog.dismiss();
-                                toast(((TextView) view).getText().toString());
+                                switch (view.getId()) {
+                                    case R.id.iv_beauty:
+                                        dialog.dismiss();
+                                        toast("新垣结衣~");
+                                        break;
+
+                                }
                             }
                         });
