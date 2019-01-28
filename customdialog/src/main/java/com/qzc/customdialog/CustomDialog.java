@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.IdRes;
 import android.text.TextUtils;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 import static android.view.View.NO_ID;
@@ -26,9 +30,13 @@ import static android.view.View.NO_ID;
  */
 public class CustomDialog extends BaseDialog implements View.OnClickListener {
     private final String TAG = this.getClass().getSimpleName();
+    private final SparseArray<View> views;
+    private final LinkedHashMap<Integer, CustomClickListener> clickMap;
 
     private CustomDialog(Builder builder) {
         super(builder);
+        this.views = new SparseArray<>();
+        this.clickMap = new LinkedHashMap<>();
     }
 
     public static Builder with(Activity context) {
@@ -52,6 +60,23 @@ public class CustomDialog extends BaseDialog implements View.OnClickListener {
         getAllChildViews(view);
     }
 
+    @Override
+    public void onClick(View v) {
+        if (customClicksListener != null) {
+            customClicksListener.onCustomClicks(v, CustomDialog.this);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    public <T extends View> T getView(@IdRes int viewId) {
+        View view = views.get(viewId);
+        if (view == null) {
+            view = findViewById(viewId);
+            views.put(viewId, view);
+        }
+        return (T) view;
+    }
+
     /**
      * 遍历所有子view
      *
@@ -67,7 +92,7 @@ public class CustomDialog extends BaseDialog implements View.OnClickListener {
                 if (child instanceof View) {
                     child.setClickable(true);
                     if (child.getId() != NO_ID) {
-                        findViewById(child.getId()).setOnClickListener(this);
+                        getView(child.getId()).setOnClickListener(this);
 //                        Log.i(TAG, child.getClass().getSimpleName()
 //                                + "->is not ViewGroup, setOnClick! id: " + child.getId());
                     }
@@ -80,16 +105,9 @@ public class CustomDialog extends BaseDialog implements View.OnClickListener {
         return allChildren;
     }
 
-    @Override
-    public void onClick(View v) {
-        if (customClicksListener != null) {
-            customClicksListener.onCustomClicks(v, CustomDialog.this);
-        }
-    }
-
-    public CustomDialog setText(int resId, CharSequence text) {
+    public CustomDialog setText(int viewId, CharSequence text) {
         if (TextUtils.isEmpty(text)) return this;
-        View view = findViewById(resId);
+        View view = getView(viewId);
         if (view instanceof TextView) {
             ((TextView) view).setText(text);
         } else if (view instanceof Button) {
@@ -100,60 +118,65 @@ public class CustomDialog extends BaseDialog implements View.OnClickListener {
         return this;
     }
 
-    public CustomDialog setText(int resId, int text) {
-        setText(resId, builder.getContext().getString(text));
+    public CustomDialog setText(int viewId, int text) {
+        setText(viewId, builder.getContext().getString(text));
         return this;
     }
 
-    public CustomDialog setImageDrawable(int resId, Drawable drawable) {
-        ImageView imageView = findViewById(resId);
+    public CustomDialog setImageDrawable(int viewId, Drawable drawable) {
+        ImageView imageView = getView(viewId);
         imageView.setImageDrawable(drawable);
         return this;
     }
 
-    public CustomDialog setImageResource(int resId, int resourceId) {
-        ImageView imageView = findViewById(resId);
+    public CustomDialog setImageResource(int viewId, int resourceId) {
+        ImageView imageView = getView(viewId);
         imageView.setImageResource(resourceId);
         return this;
     }
 
-    public CustomDialog setImageAlpha(int resId, int alpha) {
-        ImageView imageView = findViewById(resId);
+    public CustomDialog setImageAlpha(int viewId, int alpha) {
+        ImageView imageView = getView(viewId);
         imageView.setImageAlpha(alpha);
         return this;
     }
 
-    public CustomDialog setEnable(int resId, boolean enable) {
-        View view = findViewById(resId);
+    public CustomDialog setEnable(int viewId, boolean enable) {
+        View view = getView(viewId);
         view.setEnabled(enable);
         return this;
     }
 
-    public CustomDialog setChecked(int resId, boolean checked) {
-        View view = findViewById(resId);
+    public CustomDialog setChecked(int viewId, boolean checked) {
+        View view = getView(viewId);
         if (view instanceof CompoundButton) {
             ((CompoundButton) view).setChecked(checked);
         }
         return this;
     }
 
-    public CustomDialog setVisibility(int resId, int visibility) {
-        View view = findViewById(resId);
+    public CustomDialog setVisibility(int viewId, int visibility) {
+        View view = getView(viewId);
         view.setVisibility(visibility);
         return this;
     }
 
-    public CustomDialog setCustomClick(int resId, CustomClickListener listener) {
-        this.customClickListener = listener;
-        View view = findViewById(resId);
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (customClickListener != null) {
-                    customClickListener.onCustomClick(view, CustomDialog.this);
-                }
+    public CustomDialog setCustomClick(int viewId, CustomClickListener listener) {
+        clickMap.put(viewId, listener);
+        View view = getView(viewId);
+        if (view != null) {
+            if (!view.isClickable()) {
+                view.setClickable(true);
             }
-        });
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (clickMap.get(view.getId()) != null) {
+                        clickMap.get(view.getId()).onCustomClick(view, CustomDialog.this);
+                    }
+                }
+            });
+        }
         return this;
     }
 
@@ -162,10 +185,10 @@ public class CustomDialog extends BaseDialog implements View.OnClickListener {
         return this;
     }
 
-    public CustomDialog setCustomRadioGroupListener(int resId, CustomRadioGroupListener
+    public CustomDialog setCustomRadioGroupListener(int viewId, CustomRadioGroupListener
             listener) {
         this.customRadioGroupListener = listener;
-        RadioGroup radioGroup = findViewById(resId);
+        RadioGroup radioGroup = getView(viewId);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -177,9 +200,9 @@ public class CustomDialog extends BaseDialog implements View.OnClickListener {
         return this;
     }
 
-    public CustomDialog setCustomCheckBoxListener(int resId, CustomCheckBoxListener listener) {
+    public CustomDialog setCustomCheckBoxListener(int viewId, CustomCheckBoxListener listener) {
         this.customCheckBoxListener = listener;
-        CheckBox checkBox = findViewById(resId);
+        CheckBox checkBox = getView(viewId);
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -192,10 +215,8 @@ public class CustomDialog extends BaseDialog implements View.OnClickListener {
     }
 
 
-    private CustomClickListener customClickListener;
     private CustomClicksListener customClicksListener;
     private CustomRadioGroupListener customRadioGroupListener;
-
     private CustomCheckBoxListener customCheckBoxListener;
 
     public interface CustomClickListener {
