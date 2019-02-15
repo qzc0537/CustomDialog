@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.IdRes;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -158,6 +160,20 @@ public class CustomDialog extends BaseDialog implements View.OnClickListener {
     public CustomDialog setVisibility(int viewId, int visibility) {
         View view = getView(viewId);
         view.setVisibility(visibility);
+        return this;
+    }
+
+    public CustomDialog setCompoundDrawables(int viewId, int left, int top, int right, int bottom) {
+        View view = getView(viewId);
+        if (view instanceof TextView) {
+            ((TextView) view).setCompoundDrawablesWithIntrinsicBounds(left, top, right, bottom);
+        } else if (view instanceof Button) {
+            ((Button) view).setCompoundDrawablesWithIntrinsicBounds(left, top, right, bottom);
+        } else if (view instanceof RadioButton) {
+            ((RadioButton) view).setCompoundDrawablesWithIntrinsicBounds(left, top, right, bottom);
+        } else if (view instanceof CheckBox) {
+            ((CheckBox) view).setCompoundDrawablesWithIntrinsicBounds(left, top, right, bottom);
+        }
         return this;
     }
 
