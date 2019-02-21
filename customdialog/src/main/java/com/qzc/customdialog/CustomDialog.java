@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.IdRes;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -34,7 +36,6 @@ public class CustomDialog extends BaseDialog implements View.OnClickListener {
     private final String TAG = this.getClass().getSimpleName();
     private final SparseArray<View> views;
     private final LinkedHashMap<Integer, CustomClickListener> clickMap;
-    private View rootView;
 
     private CustomDialog(Builder builder) {
         super(builder);
@@ -58,7 +59,7 @@ public class CustomDialog extends BaseDialog implements View.OnClickListener {
 
     @Override
     protected void initEvent() {
-        rootView = LayoutInflater.from(builder.getContext().getApplicationContext())
+        View rootView = LayoutInflater.from(builder.getContext().getApplicationContext())
                 .inflate(builder.getLayoutId(), null);
         getAllChildViews(rootView);
     }
@@ -66,7 +67,7 @@ public class CustomDialog extends BaseDialog implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (customClicksListener != null) {
-            customClicksListener.onCustomClicks(v, rootView, CustomDialog.this);
+            customClicksListener.onCustomClicks(v, v.getRootView(), CustomDialog.this);
         }
     }
 

@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.qzc.customdialog.CustomDialog;
@@ -39,13 +39,6 @@ public class MainActivity extends AppCompatActivity {
                                 toast("取消");
                             }
                         })
-                        .setCustomClick(R.id.btn_confirm, new CustomDialog.CustomClickListener() {
-                            @Override
-                            public void onCustomClick(View view, DialogInterface dialog) {
-                                dialog.dismiss();
-                                toast("确定");
-                            }
-                        })
                         .setCustomClicks(new CustomDialog.CustomClicksListener() {
                             @Override
                             public void onCustomClicks(View view, View rootView, DialogInterface dialog) {
@@ -54,7 +47,11 @@ public class MainActivity extends AppCompatActivity {
                                         dialog.dismiss();
                                         toast("新垣结衣~");
                                         break;
-
+                                    case R.id.btn_confirm:
+                                        dialog.dismiss();
+                                        EditText editText = rootView.findViewById(R.id.edt_input);
+                                        toast(editText.getText().toString());
+                                        break;
                                 }
                             }
                         });
