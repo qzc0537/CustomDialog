@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
                         })
                         .setCustomClicks(new CustomDialog.CustomClicksListener() {
                             @Override
-                            public void onCustomClicks(View view, DialogInterface dialog) {
+                            public void onCustomClicks(View view, View rootView, DialogInterface dialog) {
                                 switch (view.getId()) {
                                     case R.id.iv_beauty:
                                         dialog.dismiss();

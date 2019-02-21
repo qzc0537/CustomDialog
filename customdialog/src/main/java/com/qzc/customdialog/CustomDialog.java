@@ -34,6 +34,7 @@ public class CustomDialog extends BaseDialog implements View.OnClickListener {
     private final String TAG = this.getClass().getSimpleName();
     private final SparseArray<View> views;
     private final LinkedHashMap<Integer, CustomClickListener> clickMap;
+    private View rootView;
 
     private CustomDialog(Builder builder) {
         super(builder);
@@ -41,7 +42,7 @@ public class CustomDialog extends BaseDialog implements View.OnClickListener {
         this.clickMap = new LinkedHashMap<>();
     }
 
-    public static Builder with(Activity context) {
+    public static BaseBuilder with(Activity context) {
         return new Builder(context);
     }
 
@@ -57,15 +58,15 @@ public class CustomDialog extends BaseDialog implements View.OnClickListener {
 
     @Override
     protected void initEvent() {
-        View view = LayoutInflater.from(builder.getContext().getApplicationContext())
+        rootView = LayoutInflater.from(builder.getContext().getApplicationContext())
                 .inflate(builder.getLayoutId(), null);
-        getAllChildViews(view);
+        getAllChildViews(rootView);
     }
 
     @Override
     public void onClick(View v) {
         if (customClicksListener != null) {
-            customClicksListener.onCustomClicks(v, CustomDialog.this);
+            customClicksListener.onCustomClicks(v, rootView, CustomDialog.this);
         }
     }
 
@@ -240,7 +241,7 @@ public class CustomDialog extends BaseDialog implements View.OnClickListener {
     }
 
     public interface CustomClicksListener {
-        void onCustomClicks(View view, DialogInterface dialog);
+        void onCustomClicks(View view, View rootView, DialogInterface dialog);
     }
 
     public interface CustomRadioGroupListener {
