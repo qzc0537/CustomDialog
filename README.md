@@ -24,7 +24,7 @@ allprojects {
 2.app build.gradle下添加依赖 ：
 
 ```
-implementation 'com.github.qzc0537:CustomDialog:1.1.1'
+implementation 'com.github.qzc0537:CustomDialog:1.1.2'
 ```
 
 3.愉快的使用：
@@ -46,13 +46,6 @@ implementation 'com.github.qzc0537:CustomDialog:1.1.1'
                                 toast("取消");
                             }
                         })
-                        .setCustomClick(R.id.btn_confirm, new CustomDialog.CustomClickListener() {
-                            @Override
-                            public void onCustomClick(View view, DialogInterface dialog) {
-                                dialog.dismiss();
-                                toast("确定");
-                            }
-                        })
                         .setCustomClicks(new CustomDialog.CustomClicksListener() {
                             @Override
                             public void onCustomClicks(View view, View rootView, DialogInterface dialog) {
@@ -61,7 +54,11 @@ implementation 'com.github.qzc0537:CustomDialog:1.1.1'
                                         dialog.dismiss();
                                         toast("新垣结衣~");
                                         break;
-
+                                    case R.id.btn_confirm:
+                                        dialog.dismiss();
+                                        EditText editText = rootView.findViewById(R.id.edt_input);
+                                        toast(editText.getText().toString());
+                                        break;
                                 }
                             }
                         });
