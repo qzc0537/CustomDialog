@@ -1,13 +1,14 @@
 package com.qzc.customdialog;
 
+import android.animation.Animator;
+import android.animation.ObjectAnimator;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.IdRes;
-import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +16,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -23,7 +23,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
 import java.util.List;
 
 import static android.view.View.NO_ID;
@@ -48,20 +47,16 @@ public class CustomDialog extends BaseDialog implements View.OnClickListener {
     }
 
     @Override
-    protected void initView() {
-
-    }
-
-    @Override
-    protected void initData() {
-
-    }
-
-    @Override
     protected void initEvent() {
         View rootView = LayoutInflater.from(builder.getContext().getApplicationContext())
                 .inflate(builder.getLayoutId(), null);
         getAllChildViews(rootView);
+    }
+
+    @Override
+    public void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+
     }
 
     @Override
@@ -266,14 +261,25 @@ public class CustomDialog extends BaseDialog implements View.OnClickListener {
         }
 
         @Override
-        public Builder setLayoutId(int layoutId) {
+        public Builder setContentView(int layoutId) {
             this.layoutId = layoutId;
+            return this;
+        }
+
+        @Override
+        public BaseBuilder setContentView(View contentView) {
+            this.contentView = contentView;
             return this;
         }
 
         @Override
         public int getLayoutId() {
             return layoutId;
+        }
+
+        @Override
+        public View getContentView() {
+            return contentView;
         }
 
         @Override
@@ -322,6 +328,8 @@ public class CustomDialog extends BaseDialog implements View.OnClickListener {
                 this.animation = R.style.MyScaleLeftBottomInDialogAnim;
             else if (anim == SCALE_RIGHT_BOTTOM_IN)
                 this.animation = R.style.MyScaleRightBottomInDialogAnim;
+            else if (anim == SCALE_IN)
+                this.animation = R.style.MyScaleInDialogAnim;
             else
                 this.animation = anim;
             return this;
@@ -405,6 +413,5 @@ public class CustomDialog extends BaseDialog implements View.OnClickListener {
             return dialog;
         }
     }
-
 
 }

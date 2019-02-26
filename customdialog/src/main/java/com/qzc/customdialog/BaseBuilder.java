@@ -1,15 +1,19 @@
 package com.qzc.customdialog;
 
+import android.animation.Animator;
 import android.app.Activity;
 import android.content.Context;
 import android.view.Gravity;
+import android.view.View;
 import android.view.WindowManager;
 
 public abstract class BaseBuilder {
     protected Activity context;
     protected int layoutId;
+    protected View contentView;
     protected int style = R.style.BackgroundDimEnabled;
     protected int animation;
+    protected Animator animator;
     protected int gravity = Gravity.CENTER;
     protected int width = (int) (WindowManager.LayoutParams.MATCH_PARENT * 0.8);
     protected int height = WindowManager.LayoutParams.WRAP_CONTENT;
@@ -23,9 +27,13 @@ public abstract class BaseBuilder {
 
     public abstract Context getContext();
 
-    public abstract BaseBuilder setLayoutId(int layoutId);
+    public abstract BaseBuilder setContentView(int layoutId);
+
+    public abstract BaseBuilder setContentView(View contentView);
 
     public abstract int getLayoutId();
+
+    public abstract View getContentView();
 
     public abstract BaseBuilder setStyle(int style);
 
@@ -37,7 +45,11 @@ public abstract class BaseBuilder {
 
     public abstract BaseBuilder setAnimation(int anim);
 
+//    public abstract BaseBuilder setAnimator(Animator anim);
+
     public abstract int getAnimation();
+
+//    public abstract Animator getAnimator();
 
     public abstract BaseBuilder setGravity(int gravity);
 

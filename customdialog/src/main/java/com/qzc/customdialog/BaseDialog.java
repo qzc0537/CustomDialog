@@ -10,8 +10,8 @@ import android.view.WindowManager;
  * created at 2018/12/19 0019 17:56
  */
 public abstract class BaseDialog extends Dialog {
-    public static final int MATCH_PARENT = WindowManager.LayoutParams.MATCH_PARENT;
-    public static final int WRAP_CONTENT = WindowManager.LayoutParams.WRAP_CONTENT;
+    public static final int MATCH = WindowManager.LayoutParams.MATCH_PARENT;
+    public static final int WRAP = WindowManager.LayoutParams.WRAP_CONTENT;
     public static final int TOP_IN = 1001;
     public static final int BOTTOM_IN = 1002;
     public static final int LEFT_IN = 1003;
@@ -25,6 +25,7 @@ public abstract class BaseDialog extends Dialog {
     public static final int SCALE_RIGHT_TOP_IN = 1011;
     public static final int SCALE_LEFT_BOTTOM_IN = 1012;
     public static final int SCALE_RIGHT_BOTTOM_IN = 1013;
+    public static final int SCALE_IN = 1014;
     protected BaseBuilder builder;
 
     public BaseDialog(CustomDialog.Builder builder) {
@@ -35,7 +36,11 @@ public abstract class BaseDialog extends Dialog {
 
     private void init() {
         if (getWindow() == null) return;
-        if (builder.getLayoutId() != 0) setContentView(builder.getLayoutId());
+        if (builder.getLayoutId() != 0) {
+            setContentView(builder.getLayoutId());
+        } else {
+            setContentView(builder.getContentView());
+        }
         initWindow(getWindow());
         initView();
     }
@@ -66,4 +71,5 @@ public abstract class BaseDialog extends Dialog {
 
     protected void initEvent() {
     }
+
 }

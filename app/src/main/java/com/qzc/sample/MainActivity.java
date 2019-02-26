@@ -24,11 +24,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(final View v) {
                 int anim = new Random().nextInt(1013 - 1001 + 1) + 1001;
                 CustomDialog.with(MainActivity.this)
-                        .setLayoutId(R.layout.dialog_custom)
-                        .setWidthHeight(0.8f, CustomDialog.WRAP_CONTENT)//默认80%,WRAP_CONTENT
+                        .setContentView(R.layout.dialog_custom)
+                        .setWidthHeight(0.8f, CustomDialog.WRAP)//默认80%,WRAP_CONTENT
                         .setGravity(Gravity.CENTER)//默认CENTER
-                        .setAnimation(anim)
-                        .setBackgroundDimEnabled(true)//默认true
+                        .setAnimation(CustomDialog.SCALE_IN)
                         .setCancelStrategy(true, true)//默认true,false
                         .create()
                         .setText(R.id.btn_confirm, "领取")
@@ -55,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             }
                         });
-
             }
         });
     }
