@@ -26,6 +26,7 @@ public abstract class BaseDialog extends Dialog {
     public static final int SCALE_LEFT_BOTTOM_IN = 1012;
     public static final int SCALE_RIGHT_BOTTOM_IN = 1013;
     public static final int SCALE_IN = 1014;
+    public static final int ROTATE_IN = 1015;
     protected BaseBuilder builder;
 
     public BaseDialog(CustomDialog.Builder builder) {

@@ -330,6 +330,8 @@ public class CustomDialog extends BaseDialog implements View.OnClickListener {
                 this.animation = R.style.MyScaleRightBottomInDialogAnim;
             else if (anim == SCALE_IN)
                 this.animation = R.style.MyScaleInDialogAnim;
+            else if (anim == ROTATE_IN)
+                this.animation = R.style.MyRotateInDialogAnim;
             else
                 this.animation = anim;
             return this;
