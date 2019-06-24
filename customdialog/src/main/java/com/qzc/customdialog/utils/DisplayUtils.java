@@ -9,9 +9,9 @@ import android.view.WindowManager;
  * @author Administrator
  * created at 2019/1/25 0025 16:13
  */
-public class DensityUtils {
+public class DisplayUtils {
 
-    private DensityUtils() {
+    private DisplayUtils() {
         /* cannot be instantiated */
         throw new UnsupportedOperationException("cannot be instantiated");
     }

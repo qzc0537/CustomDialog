@@ -32,28 +32,17 @@ public abstract class BaseDialog extends Dialog {
     public BaseDialog(CustomDialog.Builder builder) {
         super(builder.getContext(), builder.getStyle());
         this.builder = builder;
-        init();
     }
 
     private void init() {
-        if (getWindow() == null) return;
+        Window window = getWindow();
+        if (window == null) return;
+
         if (builder.getLayoutId() != 0) {
             setContentView(builder.getLayoutId());
         } else {
             setContentView(builder.getContentView());
         }
-        initWindow(getWindow());
-        initView();
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        initData();
-        initEvent();
-    }
-
-    private void initWindow(Window window) {
         window.setGravity(builder.getGravity());
         window.getAttributes().width = builder.getWidth();
         window.getAttributes().height = builder.getHeight();
@@ -64,13 +53,14 @@ public abstract class BaseDialog extends Dialog {
         setCanceledOnTouchOutside(builder.getCancelOnTouchOutside());
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        init();
+        initView();
+    }
+
     protected void initView() {
-    }
-
-    protected void initData() {
-    }
-
-    protected void initEvent() {
     }
 
 }

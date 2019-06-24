@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
                         .setContentView(R.layout.dialog_custom)
                         .setWidthHeight(0.8f, CustomDialog.WRAP)//默认80%,WRAP_CONTENT
                         .setGravity(Gravity.CENTER)//默认CENTER
-                        .setAnimation(CustomDialog.ROTATE_IN)
+                        .setAnimation(CustomDialog.SCALE_IN)
                         .setCancelStrategy(true, true)//默认true,false
                         .create()
                         .setText(R.id.btn_confirm, "领取")
