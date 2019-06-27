@@ -8,6 +8,7 @@ import android.os.Build;
 import android.support.annotation.IdRes;
 import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +20,7 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import com.qzc.customdialog.utils.LogUtils;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -96,7 +97,7 @@ public class CustomDialog extends BaseDialog implements View.OnClickListener {
                     child.setClickable(true);
                     if (child.getId() != NO_ID) {
                         getView(child.getId()).setOnClickListener(this);
-                        LogUtils.i(TAG, child.getClass().getSimpleName()
+                        Log.i(TAG, child.getClass().getSimpleName()
                                 + "->is not ViewGroup, setOnClick! id: " + child.getId());
                     }
                 }
