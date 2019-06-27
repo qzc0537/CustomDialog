@@ -24,7 +24,7 @@ allprojects {
 2.app build.gradle下添加依赖 ：
 
 ```
-implementation 'com.github.qzc0537:CustomDialog:x.y.z'
+implementation 'com.github.qzc0537:CustomDialog:1.1.7'
 ```
 
 3.愉快的使用：
