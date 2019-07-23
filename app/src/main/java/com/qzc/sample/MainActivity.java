@@ -22,11 +22,12 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.tv_hello).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                int anim = new Random().nextInt(1013 - 1001 + 1) + 1001;
+//                int anim = new Random().nextInt(1013 - 1001 + 1) + 1001;
                 CustomDialog.with(MainActivity.this)
                         .setContentView(R.layout.dialog_custom)
                         .setWidthHeight(0.8f, CustomDialog.WRAP)//默认80%,WRAP_CONTENT
                         .setGravity(Gravity.CENTER)//默认CENTER
+                        .setDimAmount(0.5f)//默认0.5f
                         .setAnimation(CustomDialog.SCALE_IN)
                         .setCancelStrategy(true, true)//默认true,false
                         .create()

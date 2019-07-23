@@ -34,6 +34,13 @@ public abstract class BaseDialog extends Dialog {
         this.builder = builder;
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        init();
+        initView();
+    }
+
     private void init() {
         Window window = getWindow();
         if (window == null) return;
@@ -46,18 +53,12 @@ public abstract class BaseDialog extends Dialog {
         window.setGravity(builder.getGravity());
         window.getAttributes().width = builder.getWidth();
         window.getAttributes().height = builder.getHeight();
+        window.getAttributes().dimAmount = builder.getDimAmount();
         if (builder.getAnimation() != 0) {
             window.setWindowAnimations(builder.getAnimation());
         }
         setCancelable(builder.getCancelable());
         setCanceledOnTouchOutside(builder.getCancelOnTouchOutside());
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        init();
-        initView();
     }
 
     protected void initView() {

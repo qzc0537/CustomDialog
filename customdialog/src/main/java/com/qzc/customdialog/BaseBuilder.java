@@ -17,6 +17,7 @@ public abstract class BaseBuilder {
     protected int gravity = Gravity.CENTER;
     protected int width = (int) (WindowManager.LayoutParams.MATCH_PARENT * 0.8);
     protected int height = WindowManager.LayoutParams.WRAP_CONTENT;
+    protected float dimAmount = 0.5f;
     protected boolean backgroundDimEnable = true;
     protected boolean isCancelable = true;
     protected boolean isCancelOnTouchOutside = false;
@@ -66,6 +67,10 @@ public abstract class BaseBuilder {
     public abstract int getWidth();
 
     public abstract int getHeight();
+
+    public abstract float getDimAmount();
+
+    public abstract BaseBuilder setDimAmount(float dimAmount);
 
     public abstract BaseBuilder setCancelStrategy(boolean cancelable, boolean cancelOnTouchOutside);
 

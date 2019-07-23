@@ -398,6 +398,17 @@ public class CustomDialog extends BaseDialog implements View.OnClickListener {
         }
 
         @Override
+        public BaseBuilder setDimAmount(float dimAmount) {
+            this.dimAmount = dimAmount;
+            return this;
+        }
+
+        @Override
+        public float getDimAmount() {
+            return dimAmount;
+        }
+
+        @Override
         public BaseBuilder setCancelStrategy(boolean cancelable, boolean cancelOnTouchOutside) {
             this.isCancelable = cancelable;
             this.isCancelOnTouchOutside = cancelOnTouchOutside;
