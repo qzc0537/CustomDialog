@@ -42,14 +42,14 @@ public abstract class BaseDialog extends Dialog {
     }
 
     private void init() {
-        Window window = getWindow();
-        if (window == null) return;
-
         if (builder.getLayoutId() != 0) {
             setContentView(builder.getLayoutId());
         } else {
             setContentView(builder.getContentView());
         }
+
+        Window window = getWindow();
+        if (window == null) return;
         window.setGravity(builder.getGravity());
         window.getAttributes().width = builder.getWidth();
         window.getAttributes().height = builder.getHeight();
@@ -59,6 +59,7 @@ public abstract class BaseDialog extends Dialog {
         }
         setCancelable(builder.getCancelable());
         setCanceledOnTouchOutside(builder.getCancelOnTouchOutside());
+
     }
 
     protected void initView() {
