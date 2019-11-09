@@ -1,21 +1,19 @@
 package com.qzc.customdialog;
 
-import android.animation.Animator;
-import android.animation.ObjectAnimator;
 import android.app.Activity;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.annotation.IdRes;
-import android.support.annotation.RequiresApi;
+
+import androidx.annotation.IdRes;
+import androidx.annotation.RequiresApi;
+
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.OvershootInterpolator;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -23,8 +21,6 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-
-import com.qzc.customdialog.utils.DisplayUtils;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -42,20 +38,30 @@ public class CustomDialog extends BaseDialog implements View.OnClickListener {
     private final LinkedHashMap<Integer, CustomClickListener> clickMap;
     private View rootView;
 
-    private CustomDialog(Builder builder) {
-        super(builder);
+    public CustomDialog(Activity context) {
+        super(context);
         this.views = new SparseArray<>();
         this.clickMap = new LinkedHashMap<>();
     }
 
-    public static BaseBuilder with(Activity context) {
-        return new Builder(context);
+    public CustomDialog(Activity context, int theme) {
+        super(context, theme);
+        this.views = new SparseArray<>();
+        this.clickMap = new LinkedHashMap<>();
+    }
+
+    public static CustomDialog with(Activity context) {
+        return new CustomDialog(context);
+    }
+
+    public static CustomDialog with(Activity context, int theme) {
+        return new CustomDialog(context, theme);
     }
 
     @Override
     protected void initView() {
-        rootView = LayoutInflater.from(builder.getContext().getApplicationContext())
-                .inflate(builder.getLayoutId(), null);
+        rootView = LayoutInflater.from(mContext.getApplicationContext())
+                .inflate(layoutId, null);
         getAllChildViews(rootView);
     }
 
@@ -128,7 +134,7 @@ public class CustomDialog extends BaseDialog implements View.OnClickListener {
     }
 
     public CustomDialog setText(int viewId, int text) {
-        setText(viewId, builder.getContext().getString(text));
+        setText(viewId, mContext.getString(text));
         return this;
     }
 
@@ -260,182 +266,87 @@ public class CustomDialog extends BaseDialog implements View.OnClickListener {
     }
 
 
-    public static class Builder extends BaseBuilder {
-
-        Builder(Activity context) {
-            super(context);
-        }
-
-        @Override
-        public Context getContext() {
-            return context;
-        }
-
-        @Override
-        public Builder setContentView(int layoutId) {
-            this.layoutId = layoutId;
-            return this;
-        }
-
-        @Override
-        public BaseBuilder setContentView(View contentView) {
-            this.contentView = contentView;
-            return this;
-        }
-
-        @Override
-        public int getLayoutId() {
-            return layoutId;
-        }
-
-        @Override
-        public View getContentView() {
-            return contentView;
-        }
-
-        @Override
-        public Builder setStyle(int style) {
-            this.style = style;
-            return this;
-        }
-
-        @Override
-        public BaseBuilder setBackgroundDimEnabled(boolean enabled) {
-            this.backgroundDimEnable = enabled;
-            return this;
-        }
-
-        @Override
-        public boolean getBackgroundDimEnabled() {
-            return backgroundDimEnable;
-        }
-
-        @Override
-        public int getStyle() {
-            if (style != 0) {
-                return style;
-            } else {
-                if (getBackgroundDimEnabled()) return R.style.BackgroundDimEnabled;
-                else return R.style.BackgroundDimDisabled;
-            }
-        }
-
-        @Override
-        public Builder setAnimation(int anim) {
-            if (anim == TOP_IN) this.animation = R.style.MyTopInDialogAnim;
-            else if (anim == BOTTOM_IN) this.animation = R.style.MyBottomInDialogAnim;
-            else if (anim == LEFT_IN) this.animation = R.style.MyLeftInDialogAnim;
-            else if (anim == RIGHT_IN) this.animation = R.style.MyRightInDialogAnim;
-            else if (anim == ALPHA_IN) this.animation = R.style.MyAlphaInDialogAnim;
-            else if (anim == SCALE_TOP_IN) this.animation = R.style.MyScaleTopInDialogAnim;
-            else if (anim == SCALE_LEFT_IN) this.animation = R.style.MyScaleLeftInDialogAnim;
-            else if (anim == SCALE_RIGHT_IN) this.animation = R.style.MyScaleRightInDialogAnim;
-            else if (anim == SCALE_BOTTOM_IN) this.animation = R.style.MyScaleBottomInDialogAnim;
-            else if (anim == SCALE_LEFT_TOP_IN)
-                this.animation = R.style.MyScaleLeftTopInDialogAnim;
-            else if (anim == SCALE_RIGHT_TOP_IN)
-                this.animation = R.style.MyScaleRightTopInDialogAnim;
-            else if (anim == SCALE_LEFT_BOTTOM_IN)
-                this.animation = R.style.MyScaleLeftBottomInDialogAnim;
-            else if (anim == SCALE_RIGHT_BOTTOM_IN)
-                this.animation = R.style.MyScaleRightBottomInDialogAnim;
-            else if (anim == SCALE_IN)
-                this.animation = R.style.MyScaleInDialogAnim;
-            else if (anim == ROTATE_IN)
-                this.animation = R.style.MyRotateInDialogAnim;
-            else
-                this.animation = anim;
-            return this;
-        }
-
-        @Override
-        public int getAnimation() {
-            return animation;
-        }
-
-        @Override
-        public Builder setGravity(int gravity) {
-            this.gravity = gravity;
-            return this;
-        }
-
-        @Override
-        public int getGravity() {
-            return gravity;
-        }
-
-        @Override
-        public Builder setWidthHeight(int width, int height) {
-            this.width = width;
-            this.height = height;
-            return this;
-        }
-
-        @Override
-        public Builder setWidthHeight(float width, float height) {
-            this.width = (int) (getContext().getResources().getDisplayMetrics().widthPixels * width);
-            this.height = (int) (getContext().getResources().getDisplayMetrics().heightPixels * height);
-            return this;
-        }
-
-        @Override
-        public BaseBuilder setWidthHeight(int width, float height) {
-            this.width = width;
-            this.height = (int) (getContext().getResources().getDisplayMetrics().heightPixels * height);
-            return this;
-        }
-
-        @Override
-        public BaseBuilder setWidthHeight(float width, int height) {
-            this.width = (int) (getContext().getResources().getDisplayMetrics().widthPixels * width);
-            this.height = height;
-            return this;
-        }
-
-        @Override
-        public int getWidth() {
-            return width;
-        }
-
-        @Override
-        public int getHeight() {
-            return height;
-        }
-
-        @Override
-        public BaseBuilder setDimAmount(float dimAmount) {
-            this.dimAmount = dimAmount;
-            return this;
-        }
-
-        @Override
-        public float getDimAmount() {
-            return dimAmount;
-        }
-
-        @Override
-        public BaseBuilder setCancelStrategy(boolean cancelable, boolean cancelOnTouchOutside) {
-            this.isCancelable = cancelable;
-            this.isCancelOnTouchOutside = cancelOnTouchOutside;
-            return this;
-        }
-
-        @Override
-        public boolean getCancelable() {
-            return isCancelable;
-        }
-
-        @Override
-        public boolean getCancelOnTouchOutside() {
-            return isCancelOnTouchOutside;
-        }
-
-        @Override
-        public CustomDialog create() {
-            CustomDialog dialog = new CustomDialog(this);
-            dialog.show();
-            return dialog;
-        }
+    public CustomDialog setView(int layoutId) {
+        this.layoutId = layoutId;
+        return this;
     }
+
+    public CustomDialog setView(View contentView) {
+        this.contentView = contentView;
+        return this;
+    }
+
+    public CustomDialog setTheme(int themeId) {
+        this.theme = themeId;
+        return this;
+    }
+
+    public CustomDialog setGravity(int gravity) {
+        this.gravity = gravity;
+        return this;
+    }
+
+    public CustomDialog setWidthHeight(int width, int height) {
+        this.width = width;
+        this.height = height;
+        return this;
+    }
+
+    public CustomDialog setWidthHeight(float width, float height) {
+        this.width = (int) (getContext().getResources().getDisplayMetrics().widthPixels * width);
+        this.height = (int) (getContext().getResources().getDisplayMetrics().heightPixels * height);
+        return this;
+    }
+
+    public CustomDialog setWidthHeight(int width, float height) {
+        this.width = width;
+        this.height = (int) (getContext().getResources().getDisplayMetrics().heightPixels * height);
+        return this;
+    }
+
+    public CustomDialog setWidthHeight(float width, int height) {
+        this.width = (int) (getContext().getResources().getDisplayMetrics().widthPixels * width);
+        this.height = height;
+        return this;
+    }
+
+    public CustomDialog setDimAmount(float dimAmount) {
+        this.dimAmount = dimAmount;
+        return this;
+    }
+
+    public CustomDialog setCancelStrategy(boolean cancelable, boolean cancelOnTouchOutside) {
+        this.isCancelable = cancelable;
+        this.isCancelOnTouchOutside = cancelOnTouchOutside;
+        return this;
+    }
+
+    public CustomDialog setAnimation(int anim) {
+        if (anim == TOP_IN) this.animation = R.style.MyTopInDialogAnim;
+        else if (anim == BOTTOM_IN) this.animation = R.style.MyBottomInDialogAnim;
+        else if (anim == LEFT_IN) this.animation = R.style.MyLeftInDialogAnim;
+        else if (anim == RIGHT_IN) this.animation = R.style.MyRightInDialogAnim;
+        else if (anim == ALPHA_IN) this.animation = R.style.MyAlphaInDialogAnim;
+        else if (anim == SCALE_TOP_IN) this.animation = R.style.MyScaleTopInDialogAnim;
+        else if (anim == SCALE_LEFT_IN) this.animation = R.style.MyScaleLeftInDialogAnim;
+        else if (anim == SCALE_RIGHT_IN) this.animation = R.style.MyScaleRightInDialogAnim;
+        else if (anim == SCALE_BOTTOM_IN) this.animation = R.style.MyScaleBottomInDialogAnim;
+        else if (anim == SCALE_LEFT_TOP_IN)
+            this.animation = R.style.MyScaleLeftTopInDialogAnim;
+        else if (anim == SCALE_RIGHT_TOP_IN)
+            this.animation = R.style.MyScaleRightTopInDialogAnim;
+        else if (anim == SCALE_LEFT_BOTTOM_IN)
+            this.animation = R.style.MyScaleLeftBottomInDialogAnim;
+        else if (anim == SCALE_RIGHT_BOTTOM_IN)
+            this.animation = R.style.MyScaleRightBottomInDialogAnim;
+        else if (anim == SCALE_IN)
+            this.animation = R.style.MyScaleInDialogAnim;
+        else if (anim == ROTATE_IN)
+            this.animation = R.style.MyRotateInDialogAnim;
+        else
+            this.animation = anim;
+        return this;
+    }
+
 
 }
