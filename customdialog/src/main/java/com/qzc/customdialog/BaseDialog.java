@@ -42,7 +42,7 @@ public abstract class BaseDialog extends Dialog {
     protected int theme = R.style.BackgroundDimEnabled;
     protected int animation;
     protected int gravity = Gravity.CENTER;
-    protected int width = (int) (WindowManager.LayoutParams.MATCH_PARENT * 0.8);
+    protected int width = (int) (screenWidth * 0.8);
     protected int height = WindowManager.LayoutParams.WRAP_CONTENT;
     protected float dimAmount = 0.5f;
     protected boolean isCancelable = true;
