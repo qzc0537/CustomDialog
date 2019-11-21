@@ -24,22 +24,23 @@ allprojects {
 2.app build.gradle下添加依赖 ：
 
 ```
-Android Support:
-implementation 'com.github.qzc0537:CustomDialog:1.1.8'
-
 AndroidX:
-implementation 'com.github.qzc0537:CustomDialog:1.1.9'
+implementation 'com.github.qzc0537:CustomDialog:1.2.0'
+
+Before AndroidX:
+implementation 'com.github.qzc0537:CustomDialog:1.1.8'
 ```
 
 3.愉快的使用：
 ```
 CustomDialog.with(MainActivity.this)
-            .setView(R.layout.dialog_custom)
+            .setLayoutId(R.layout.dialog_custom)
             .setWidthHeight(0.9f, CustomDialog.WRAP)//默认80%,WRAP_CONTENT
             .setGravity(Gravity.CENTER)//默认CENTER
             .setDimAmount(0.6f)//默认0.5f
             .setAnimation(CustomDialog.BOTTOM_IN)
             .setCancelStrategy(true, true)//默认true,true
+            .build()
             .setText(R.id.btn_confirm, "领取")
             .setCustomClicks(new CustomDialog.CustomClicksListener() {
                 @Override
@@ -59,5 +60,4 @@ CustomDialog.with(MainActivity.this)
                             break;
                     }
                 }
-            })
-            .show();
+            });

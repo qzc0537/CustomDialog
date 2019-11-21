@@ -1,6 +1,7 @@
 package com.qzc.customdialog;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -11,9 +12,11 @@ import androidx.annotation.RequiresApi;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.SparseArray;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -34,28 +37,30 @@ import static android.view.View.NO_ID;
  */
 public class CustomDialog extends BaseDialog implements View.OnClickListener {
     private final String TAG = this.getClass().getSimpleName();
-    private final SparseArray<View> views;
-    private final LinkedHashMap<Integer, CustomClickListener> clickMap;
+    private SparseArray<View> views;
+    private LinkedHashMap<Integer, CustomClickListener> clickMap;
     private View rootView;
 
-    public CustomDialog(Activity context) {
-        super(context);
+    private CustomDialog(Activity context, int layoutId, View view, int theme, int animation,
+                         int gravity, int width, int height, float dimAmount, boolean isCancelable,
+                         boolean isCancelOnTouchOutside) {
+        super(context, theme == 0 ? R.style.BackgroundDimEnabled : theme);
+        this.mContext = context;
+        this.layoutId = layoutId;
+        this.view = view;
+        this.width = width;
+        this.height = height;
+        this.gravity = gravity;
+        this.dimAmount = dimAmount;
+        setAnimation(animation);
+        this.isCancelable = isCancelable;
+        this.isCancelOnTouchOutside = isCancelOnTouchOutside;
         this.views = new SparseArray<>();
         this.clickMap = new LinkedHashMap<>();
     }
 
-    public CustomDialog(Activity context, int theme) {
-        super(context, theme);
-        this.views = new SparseArray<>();
-        this.clickMap = new LinkedHashMap<>();
-    }
-
-    public static CustomDialog with(Activity context) {
-        return new CustomDialog(context);
-    }
-
-    public static CustomDialog with(Activity context, int theme) {
-        return new CustomDialog(context, theme);
+    public static Builder with(Activity context) {
+        return new Builder(context);
     }
 
     @Override
@@ -266,62 +271,7 @@ public class CustomDialog extends BaseDialog implements View.OnClickListener {
     }
 
 
-    public CustomDialog setView(int layoutId) {
-        this.layoutId = layoutId;
-        return this;
-    }
-
-    public CustomDialog setView(View contentView) {
-        this.contentView = contentView;
-        return this;
-    }
-
-    public CustomDialog setTheme(int themeId) {
-        this.theme = themeId;
-        return this;
-    }
-
-    public CustomDialog setGravity(int gravity) {
-        this.gravity = gravity;
-        return this;
-    }
-
-    public CustomDialog setWidthHeight(int width, int height) {
-        this.width = width;
-        this.height = height;
-        return this;
-    }
-
-    public CustomDialog setWidthHeight(float width, float height) {
-        this.width = (int) (getContext().getResources().getDisplayMetrics().widthPixels * width);
-        this.height = (int) (getContext().getResources().getDisplayMetrics().heightPixels * height);
-        return this;
-    }
-
-    public CustomDialog setWidthHeight(int width, float height) {
-        this.width = width;
-        this.height = (int) (getContext().getResources().getDisplayMetrics().heightPixels * height);
-        return this;
-    }
-
-    public CustomDialog setWidthHeight(float width, int height) {
-        this.width = (int) (getContext().getResources().getDisplayMetrics().widthPixels * width);
-        this.height = height;
-        return this;
-    }
-
-    public CustomDialog setDimAmount(float dimAmount) {
-        this.dimAmount = dimAmount;
-        return this;
-    }
-
-    public CustomDialog setCancelStrategy(boolean cancelable, boolean cancelOnTouchOutside) {
-        this.isCancelable = cancelable;
-        this.isCancelOnTouchOutside = cancelOnTouchOutside;
-        return this;
-    }
-
-    public CustomDialog setAnimation(int anim) {
+    private CustomDialog setAnimation(int anim) {
         if (anim == TOP_IN) this.animation = R.style.MyTopInDialogAnim;
         else if (anim == BOTTOM_IN) this.animation = R.style.MyBottomInDialogAnim;
         else if (anim == LEFT_IN) this.animation = R.style.MyLeftInDialogAnim;
@@ -349,4 +299,139 @@ public class CustomDialog extends BaseDialog implements View.OnClickListener {
     }
 
 
+    public static class Builder {
+        private Activity context;
+        private int layoutId;
+        private View view;
+        private int theme = R.style.BackgroundDimEnabled;
+        private int animation;
+        private int gravity = Gravity.CENTER;
+        private int width = (int) (WindowManager.LayoutParams.MATCH_PARENT * 0.8);
+        private int height = WindowManager.LayoutParams.WRAP_CONTENT;
+        private float dimAmount = 0.5f;
+        private boolean isCancelable = true;
+        private boolean isCancelOnTouchOutside = true;
+
+        public Builder(Activity context) {
+            this.context = context;
+        }
+
+        public Context getContext() {
+            return context;
+        }
+
+        public Builder setContext(Activity context) {
+            this.context = context;
+            return this;
+        }
+
+        public int getLayoutId() {
+            return layoutId;
+        }
+
+        public Builder setLayoutId(int layoutId) {
+            this.layoutId = layoutId;
+            return this;
+        }
+
+        public View getView() {
+            return view;
+        }
+
+        public Builder setView(View view) {
+            this.view = view;
+            return this;
+        }
+
+        public Builder setWidthHeight(int width, int height) {
+            this.width = width;
+            this.height = height;
+            return this;
+        }
+
+        public Builder setWidthHeight(float width, float height) {
+            this.width = (int) (screenWidth * width);
+            this.height = (int) (screenHeight * height);
+            return this;
+        }
+
+        public Builder setWidthHeight(int width, float height) {
+            this.width = width;
+            this.height = (int) (screenHeight * height);
+            return this;
+        }
+
+        public Builder setWidthHeight(float width, int height) {
+            this.width = (int) (screenWidth * width);
+            this.height = height;
+            return this;
+        }
+
+        public int getTheme() {
+            return theme;
+        }
+
+        public Builder setTheme(int theme) {
+            this.theme = theme;
+            return this;
+        }
+
+        public int getAnimation() {
+            return animation;
+        }
+
+        public Builder setAnimation(int animation) {
+            this.animation = animation;
+            return this;
+        }
+
+        public int getGravity() {
+            return gravity;
+        }
+
+        public Builder setGravity(int gravity) {
+            this.gravity = gravity;
+            return this;
+        }
+
+        public float getDimAmount() {
+            return dimAmount;
+        }
+
+        public Builder setDimAmount(float dimAmount) {
+            this.dimAmount = dimAmount;
+            return this;
+        }
+
+        public Builder setCancelStrategy(boolean cancelable, boolean cancelOnTouchOutside) {
+            isCancelable = cancelable;
+            isCancelOnTouchOutside = cancelOnTouchOutside;
+            return this;
+        }
+
+        public boolean isCancelable() {
+            return isCancelable;
+        }
+
+        public Builder setCancelable(boolean cancelable) {
+            isCancelable = cancelable;
+            return this;
+        }
+
+        public boolean isCancelOnTouchOutside() {
+            return isCancelOnTouchOutside;
+        }
+
+        public Builder setCancelOnTouchOutside(boolean cancelOnTouchOutside) {
+            isCancelOnTouchOutside = cancelOnTouchOutside;
+            return this;
+        }
+
+        public CustomDialog build() {
+            CustomDialog dialog = new CustomDialog(context, layoutId, view, theme, animation, gravity, width,
+                    height, dimAmount, isCancelable, isCancelOnTouchOutside);
+            dialog.show();
+            return dialog;
+        }
+    }
 }

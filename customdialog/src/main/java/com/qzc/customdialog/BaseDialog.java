@@ -38,7 +38,7 @@ public abstract class BaseDialog extends Dialog {
 
     protected Context mContext;
     protected int layoutId;
-    protected View contentView;
+    protected View view;
     protected int theme = R.style.BackgroundDimEnabled;
     protected int animation;
     protected int gravity = Gravity.CENTER;
@@ -64,7 +64,7 @@ public abstract class BaseDialog extends Dialog {
         if (layoutId != 0) {
             setContentView(layoutId);
         } else {
-            setContentView(contentView);
+            setContentView(view);
         }
         initWindow();
         initView();
