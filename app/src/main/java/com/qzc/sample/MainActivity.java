@@ -1,8 +1,10 @@
 package com.qzc.sample;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.os.Bundle;
 import android.view.Gravity;
@@ -10,52 +12,88 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.qzc.customdialog.CustomDialog;
+import com.qzc.customdialog.dialog.CustomDialog;
+import com.qzc.customdialog.interfaces.OnCustomClickListener;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        findViewById(R.id.btn_custom_dialog).setOnClickListener(this);
+        findViewById(R.id.btn_material_dialog).setOnClickListener(this);
+        findViewById(R.id.btn_photo_dialog).setOnClickListener(this);
+    }
 
-        findViewById(R.id.tv_hello).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-//                int anim = new Random().nextInt(1013 - 1001 + 1) + 1001;
-                CustomDialog.with(MainActivity.this)
-                        .setLayoutId(R.layout.dialog_custom)
-                        .setWidthHeight(0.9f, CustomDialog.WRAP)//默认80%,WRAP_CONTENT
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_custom_dialog:
+                CustomDialog.newBuilder(MainActivity.this)
+                        .setContentView(R.layout.dialog_custom)
+                        .setWidthHeight(0.9f, CustomDialog.WRAP)
                         .setGravity(Gravity.CENTER)//默认CENTER
                         .setDimAmount(0.6f)//默认0.5f
-                        .setAnimation(CustomDialog.BOTTOM_IN)
+                        .setBottomIn()
                         .setCancelStrategy(true, true)//默认true,true
-                        .build()
                         .setText(R.id.btn_confirm, "领取")
-                        .setCustomClicks(new CustomDialog.CustomClicksListener() {
+                        .setTextColor(R.id.btn_confirm, getColor())
+                        .setOnClickListener(R.id.btn_confirm, new OnCustomClickListener() {
                             @Override
-                            public void onCustomClicks(View view, View rootView, DialogInterface dialog) {
-                                switch (view.getId()) {
-                                    case R.id.iv_beauty:
-                                        dialog.dismiss();
-                                        toast("新垣结衣~");
-                                        break;
-                                    case R.id.btn_cancel:
-                                        dialog.dismiss();
-                                        break;
-                                    case R.id.btn_confirm:
-                                        dialog.dismiss();
-                                        EditText editText = rootView.findViewById(R.id.edt_input);
-                                        toast(editText.getText().toString());
-                                        break;
-                                }
+                            public void onCustomClick(View view, View contentView, Dialog dialog) {
+                                dialog.dismiss();
+                                EditText editText = contentView.findViewById(R.id.edt_input);
+                                toast(editText.getText().toString());
                             }
-                        });
-            }
-        });
+                        })
+                        .show();
+                break;
+            case R.id.btn_material_dialog:
+                CustomDialog.newMDBuilder(MainActivity.this)
+                        .setTitle("温馨提示")
+                        .setMessage("确定使用这个神奇的库吗？")
+                        .setPositiveButtonColor(getColor())
+                        .setNegativeButton("再想想", new OnCustomClickListener() {
+                            @Override
+                            public void onCustomClick(View view, View contentView, Dialog dialog) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .setPositiveButton("是的", new OnCustomClickListener() {
+                            @Override
+                            public void onCustomClick(View view, View contentView, Dialog dialog) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .show();
+                break;
+            case R.id.btn_photo_dialog:
+                CustomDialog.newPhotoBuilder(MainActivity.this)
+                        .setCameraButtonListener(new OnCustomClickListener() {
+                            @Override
+                            public void onCustomClick(View view, View contentView, Dialog dialog) {
+                                dialog.dismiss();
+                                toast("拍照");
+                            }
+                        })
+                        .setPhotoButtonListener(new OnCustomClickListener() {
+                            @Override
+                            public void onCustomClick(View view, View contentView, Dialog dialog) {
+                                dialog.dismiss();
+                                toast("相册");
+                            }
+                        })
+                        .show();
+                break;
+        }
     }
 
     private void toast(CharSequence text) {
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+    }
+
+    private int getColor() {
+        return ContextCompat.getColor(this, R.color.colorAccent);
     }
 }
