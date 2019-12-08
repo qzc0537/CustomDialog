@@ -14,6 +14,8 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import androidx.annotation.IdRes;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.qzc.customdialog.R;
 import com.qzc.customdialog.image.CommonImageLoader;
@@ -21,6 +23,7 @@ import com.qzc.customdialog.interfaces.OnCustomCheckBoxListener;
 import com.qzc.customdialog.interfaces.OnCustomClickListener;
 import com.qzc.customdialog.interfaces.OnCustomRadioGroupListener;
 import com.qzc.customdialog.interfaces.OnCustomTextChangeListener;
+import com.qzc.customdialog.lifecycle.LifeFragment;
 
 /**
  * created by qinzhichang at 2019/12/01 11:02
@@ -44,6 +47,7 @@ public class BaseBuilder {
     private int mAnimation; //dialog动画
     private int mOffsetX;      //dialog在X轴的偏移量（Gravity需要设置Left）
     private int mOffsetY;      //dialog在Y轴的偏移量（Gravity需要设置Top）
+    private int mPriority = -1;
 
     SparseArray<CharSequence> mTextArray = new SparseArray<>();
     SparseArray<Integer> mTextIntArray = new SparseArray<>();
@@ -78,6 +82,15 @@ public class BaseBuilder {
             mDialog.init(this);
             mViewHelper = mDialog.getViewHelper();
             attachView();
+        }
+        if (mPriority > -1) {
+            DialogManager.getInstance().add(mPriority, mDialog);
+        }
+        if (mContext instanceof FragmentActivity) {
+            FragmentActivity activity = (FragmentActivity) mContext;
+            LifeFragment fragment = LifeFragment.getInstance();
+            FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
+            transaction.add(fragment, "Lifecycle").commitAllowingStateLoss();
         }
         return mDialog;
     }
@@ -278,6 +291,11 @@ public class BaseBuilder {
 
     public BaseBuilder setOffsetY(int offsetY) {
         this.mOffsetY = offsetY;
+        return this;
+    }
+
+    public BaseBuilder setPriority(int mPriority) {
+        this.mPriority = mPriority;
         return this;
     }
 

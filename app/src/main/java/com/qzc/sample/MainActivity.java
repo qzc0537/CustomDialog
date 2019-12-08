@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         .setGravity(Gravity.CENTER)//默认CENTER
                         .setDimAmount(0.6f)//默认0.5f
                         .setBottomIn()
+                        .setPriority(0)
                         .setCancelStrategy(true, true)//默认true,true
                         .setText(R.id.btn_confirm, "领取")
                         .setTextColor(R.id.btn_confirm, getColor())
