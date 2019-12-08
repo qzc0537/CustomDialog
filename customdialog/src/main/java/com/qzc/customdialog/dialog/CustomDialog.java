@@ -175,6 +175,10 @@ public class CustomDialog extends Dialog {
             mContentView = LayoutInflater.from(mContext).inflate(R.layout.dialog_material, null);
         }
 
+        public MDBuilder setPriority(int priority) {
+            mPriority = priority;
+            return this;
+        }
 
         public MDBuilder setTitle(CharSequence charSequence) {
             mTextArray.put(R.id.tv_title, charSequence);
@@ -237,6 +241,11 @@ public class CustomDialog extends Dialog {
                     dialog.dismiss();
                 }
             });
+        }
+
+        public PhotoBuilder setPriority(int priority) {
+            mPriority = priority;
+            return this;
         }
 
         public PhotoBuilder setCameraButtonColor(int color) {

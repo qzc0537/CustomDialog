@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.qzc.customdialog.dialog.CustomDialog;
+import com.qzc.customdialog.dialog.DialogManager;
 import com.qzc.customdialog.interfaces.OnCustomClickListener;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.btn_custom_dialog).setOnClickListener(this);
         findViewById(R.id.btn_material_dialog).setOnClickListener(this);
         findViewById(R.id.btn_photo_dialog).setOnClickListener(this);
+        findViewById(R.id.btn_show_priority).setOnClickListener(this);
     }
 
     @Override
@@ -36,10 +38,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         .setGravity(Gravity.CENTER)//默认CENTER
                         .setDimAmount(0.6f)//默认0.5f
                         .setBottomIn()
-                        .setPriority(0)
+                        .setPriority(2)
                         .setCancelStrategy(true, true)//默认true,true
                         .setText(R.id.btn_confirm, "领取")
                         .setTextColor(R.id.btn_confirm, getColor())
+                        .setOnClickListener(R.id.btn_cancel, new OnCustomClickListener() {
+                            @Override
+                            public void onCustomClick(View view, View contentView, Dialog dialog) {
+                                dialog.dismiss();
+                            }
+                        })
                         .setOnClickListener(R.id.btn_confirm, new OnCustomClickListener() {
                             @Override
                             public void onCustomClick(View view, View contentView, Dialog dialog) {
@@ -48,12 +56,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 toast(editText.getText().toString());
                             }
                         })
-                        .show();
+                        .build();
                 break;
             case R.id.btn_material_dialog:
                 CustomDialog.newMDBuilder(MainActivity.this)
                         .setTitle("温馨提示")
                         .setMessage("确定使用这个神奇的库吗？")
+                        .setPriority(0)
                         .setPositiveButtonColor(getColor())
                         .setNegativeButton("再想想", new OnCustomClickListener() {
                             @Override
@@ -67,10 +76,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 dialog.dismiss();
                             }
                         })
-                        .show();
+                        .build();
                 break;
             case R.id.btn_photo_dialog:
                 CustomDialog.newPhotoBuilder(MainActivity.this)
+                        .setPriority(1)
                         .setCameraButtonListener(new OnCustomClickListener() {
                             @Override
                             public void onCustomClick(View view, View contentView, Dialog dialog) {
@@ -85,7 +95,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 toast("相册");
                             }
                         })
-                        .show();
+                        .build();
+                break;
+            case R.id.btn_show_priority:
+                DialogManager.getInstance().showPriorityDialog();
                 break;
         }
     }

@@ -47,7 +47,7 @@ public class BaseBuilder {
     private int mAnimation; //dialog动画
     private int mOffsetX;      //dialog在X轴的偏移量（Gravity需要设置Left）
     private int mOffsetY;      //dialog在Y轴的偏移量（Gravity需要设置Top）
-    private int mPriority = -1;
+    protected int mPriority = -1;
 
     SparseArray<CharSequence> mTextArray = new SparseArray<>();
     SparseArray<Integer> mTextIntArray = new SparseArray<>();
