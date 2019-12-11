@@ -33,6 +33,8 @@ public class CustomDialog extends Dialog {
     public static final int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
 
     private ViewHelper mViewHelper;
+    private int mPriority = -1;
+    private String mHostName;
 
     protected CustomDialog(Context context, int theme) {
         super(context, theme);
@@ -124,6 +126,21 @@ public class CustomDialog extends Dialog {
         mViewHelper.addTextChangedListener(id, listener);
     }
 
+    public int getPriority() {
+        return mPriority;
+    }
+
+    public void setPriority(int priority) {
+        this.mPriority = priority;
+    }
+
+    public String getHostName() {
+        return mHostName;
+    }
+
+    public void setHostName(String hostName) {
+        this.mHostName = hostName;
+    }
 
     public static Builder newBuilder(Context context) {
         return new Builder(context);

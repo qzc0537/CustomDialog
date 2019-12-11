@@ -34,12 +34,10 @@ public class DialogManager {
     /**
      * 添加对话框
      *
-     * @param priority
      * @param dialog
      */
-    public void add(int priority, CustomDialog dialog) {
-        mDialogArray.put(priority, dialog);
-        sortPriority();
+    public void add(CustomDialog dialog) {
+        mDialogArray.put(dialog.getPriority(), dialog);
     }
 
     /**
@@ -58,6 +56,7 @@ public class DialogManager {
      * 顺序显示对话框
      */
     public void showPriorityDialog() {
+        sortPriority();
         for (int i = 0; i < mPriorityList.size(); i++) {
             CustomDialog dialog = mDialogArray.valueAt(mPriorityList.get(i));
             dialog.show();
@@ -67,7 +66,7 @@ public class DialogManager {
     /**
      * 顺序关闭所有设置优先级的对话框
      */
-    public void dismissPriorityDialog() {
+    public void dismissPriorityDialog(String hostName) {
         //顺序关闭
         for (int i = 0; i < mPriorityList.size(); i++) {
             CustomDialog dialog = mDialogArray.valueAt(mPriorityList.get(i));

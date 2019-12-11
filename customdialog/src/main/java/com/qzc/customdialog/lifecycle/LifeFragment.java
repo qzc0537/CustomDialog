@@ -18,6 +18,8 @@ import com.qzc.customdialog.dialog.DialogManager;
  */
 public class LifeFragment extends Fragment {
 
+    private String mHastName = "";
+
     public LifeFragment() {
     }
 
@@ -45,6 +47,7 @@ public class LifeFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        mHastName = getActivity() == null ? "" : getActivity().getLocalClassName();
     }
 
     @Override
@@ -70,7 +73,7 @@ public class LifeFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        DialogManager.getInstance().dismissPriorityDialog();
+        DialogManager.getInstance().dismissPriorityDialog(mHastName);
     }
 
     @Override

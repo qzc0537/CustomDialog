@@ -15,6 +15,7 @@ import android.view.WindowManager;
 
 import androidx.annotation.IdRes;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.qzc.customdialog.R;
@@ -83,15 +84,6 @@ public class BaseBuilder {
             mViewHelper = mDialog.getViewHelper();
             attachView();
         }
-        if (mPriority > -1) {
-            DialogManager.getInstance().add(mPriority, mDialog);
-        }
-        if (mContext instanceof FragmentActivity) {
-            FragmentActivity activity = (FragmentActivity) mContext;
-            LifeFragment fragment = LifeFragment.getInstance();
-            FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
-            transaction.add(fragment, "Lifecycle").commitAllowingStateLoss();
-        }
         return mDialog;
     }
 
@@ -100,7 +92,24 @@ public class BaseBuilder {
             build();
         }
         initWindow(mDialog);
-        mDialog.show();
+        if (mPriority > -1) {
+            if (mContext instanceof FragmentActivity) {
+                FragmentActivity activity = (FragmentActivity) mContext;
+                FragmentManager manager = activity.getSupportFragmentManager();
+                FragmentTransaction transaction = manager.beginTransaction();
+                if (manager.findFragmentByTag("Lifecycle") == null) {
+                    LifeFragment fragment = LifeFragment.getInstance();
+                    transaction.add(fragment, "Lifecycle").commitAllowingStateLoss();
+                }
+                mDialog.setPriority(mPriority);
+                mDialog.setHostName(activity.getLocalClassName());
+                DialogManager.getInstance().add(mDialog);
+            } else {
+                mDialog.show();
+            }
+        } else {
+            mDialog.show();
+        }
         return mDialog;
     }
 
