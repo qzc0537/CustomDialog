@@ -1,5 +1,6 @@
 package com.qzc.customdialog.dialog;
 
+import android.content.DialogInterface;
 import android.util.SparseArray;
 
 import java.util.ArrayList;
@@ -13,7 +14,6 @@ public class DialogManager {
 
     private static DialogManager mInstance;
     private static SparseArray<CustomDialog> mDialogArray;
-    private static ArrayList<Integer> mPriorityList;
 
     private DialogManager() {
     }
@@ -24,7 +24,6 @@ public class DialogManager {
                 if (mInstance == null) {
                     mInstance = new DialogManager();
                     mDialogArray = new SparseArray<>();
-                    mPriorityList = new ArrayList<>();
                 }
             }
         }
@@ -37,45 +36,65 @@ public class DialogManager {
      * @param dialog
      */
     public void add(CustomDialog dialog) {
-        mDialogArray.put(dialog.getPriority(), dialog);
+        if (mDialogArray.indexOfKey(dialog.getPriority()) <= -1) {
+            mDialogArray.put(dialog.getPriority(), dialog);
+        }
     }
 
     /**
-     * 对优先级值排序
+     * 找到优先级最高值
+     *
+     * @return
      */
-    public void sortPriority() {
-        //从SparseArray中取出所有优先级
+    public int findMax() {
+        int max = 0;
         for (int i = 0; i < mDialogArray.size(); i++) {
-            mPriorityList.add(mDialogArray.keyAt(i));
+            if (mDialogArray.keyAt(i) > max) {
+                max = mDialogArray.keyAt(i);
+            }
         }
-        //对优先级排序
-        Arrays.sort(mPriorityList.toArray(new Integer[mDialogArray.size()]));
+        return max;
     }
 
     /**
      * 顺序显示对话框
      */
     public void showPriorityDialog() {
-        sortPriority();
-        for (int i = 0; i < mPriorityList.size(); i++) {
-            CustomDialog dialog = mDialogArray.valueAt(mPriorityList.get(i));
+        if (mDialogArray.size() == 0) return;
+        int max = findMax();
+        CustomDialog dialog = null;
+        for (int i = 0; i < mDialogArray.size(); i++) {
+            dialog = mDialogArray.valueAt(i);
+            if (dialog != null && dialog.getPriority() == max) {
+                mDialogArray.remove(max);
+                break;
+            }
+        }
+        if (dialog != null) {
             dialog.show();
+            dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                @Override
+                public void onDismiss(DialogInterface dialog) {
+                    showPriorityDialog();
+                }
+            });
         }
     }
 
     /**
-     * 顺序关闭所有设置优先级的对话框
+     * 关闭和移除所有设置优先级的对话框
      */
     public void dismissPriorityDialog(String hostName) {
-        //顺序关闭
-        for (int i = 0; i < mPriorityList.size(); i++) {
-            CustomDialog dialog = mDialogArray.valueAt(mPriorityList.get(i));
-            dialog.dismiss();
-            dialog = null;
+        if (mDialogArray.size() == 0) return;
+        CustomDialog dialog = null;
+        for (int i = 0; i < mDialogArray.size(); i++) {
+            dialog = mDialogArray.valueAt(i);
+            if (dialog != null && dialog.getHostName().equals(hostName)) {
+                mDialogArray.remove(dialog.getPriority());
+                if (dialog.isShowing()) dialog.dismiss();
+                dialog = null;
+            }
         }
-        //清空引用
-        mPriorityList.clear();
-        mDialogArray.clear();
     }
 
 }
