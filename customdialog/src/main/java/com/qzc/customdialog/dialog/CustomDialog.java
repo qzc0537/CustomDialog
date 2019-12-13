@@ -142,11 +142,14 @@ public class CustomDialog extends Dialog {
         this.mHostName = hostName;
     }
 
-    public static Builder newBuilder(Context context) {
+
+
+
+    public static Builder with(Context context) {
         return new Builder(context);
     }
 
-    public static Builder newBuilder(Context context, int themeResId) {
+    public static Builder with(Context context, int themeResId) {
         return new Builder(context, themeResId);
     }
 
@@ -173,11 +176,11 @@ public class CustomDialog extends Dialog {
         }
     }
 
-    public static MDBuilder newMDBuilder(Context context) {
+    public static MDBuilder withMD(Context context) {
         return new MDBuilder(context);
     }
 
-    public static MDBuilder newMDBuilder(Context context, int themeResId) {
+    public static MDBuilder withMD(Context context, int themeResId) {
         return new MDBuilder(context, themeResId);
     }
 
@@ -190,6 +193,11 @@ public class CustomDialog extends Dialog {
         public MDBuilder(Context context, int themeResId) {
             super(context, themeResId);
             mContentView = LayoutInflater.from(mContext).inflate(R.layout.dialog_material, null);
+            setVisibleOrGone(R.id.tv_title, false);
+            setVisibleOrGone(R.id.tv_message, false);
+            setVisibleOrGone(R.id.tv_cancel, false);
+            setVisibleOrGone(R.id.tv_confirm, false);
+            setWidthHeight(0.85f, -2);
         }
 
         public MDBuilder setPriority(int priority) {
@@ -198,26 +206,42 @@ public class CustomDialog extends Dialog {
         }
 
         public MDBuilder setTitle(CharSequence charSequence) {
+            if (TextUtils.isEmpty(charSequence)) return this;
+            setVisibleOrGone(R.id.tv_title, true);
             mTextArray.put(R.id.tv_title, charSequence);
             return this;
         }
 
         public MDBuilder setMessage(CharSequence charSequence) {
+            if (TextUtils.isEmpty(charSequence)) return this;
+            setVisibleOrGone(R.id.tv_message, true);
             mTextArray.put(R.id.tv_message, charSequence);
             return this;
         }
 
         public MDBuilder setNegativeButton(CharSequence charSequence, OnCustomClickListener listener) {
-            if (TextUtils.isEmpty(charSequence)) setVisibleOrGone(R.id.tv_cancel, false);
+            if (TextUtils.isEmpty(charSequence)) return this;
+            setVisibleOrGone(R.id.tv_cancel, true);
             mTextArray.put(R.id.tv_cancel, charSequence);
             mClickListenerArray.put(R.id.tv_cancel, listener);
             return this;
         }
 
         public MDBuilder setPositiveButton(CharSequence charSequence, OnCustomClickListener listener) {
-            if (TextUtils.isEmpty(charSequence)) setVisibleOrGone(R.id.tv_confirm, false);
+            if (TextUtils.isEmpty(charSequence)) return this;
+            setVisibleOrGone(R.id.tv_confirm, true);
             mTextArray.put(R.id.tv_confirm, charSequence);
             mClickListenerArray.put(R.id.tv_confirm, listener);
+            return this;
+        }
+
+        public MDBuilder setTitleColor(int color) {
+            mTextColorArray.put(R.id.tv_title, color);
+            return this;
+        }
+
+        public MDBuilder setMessageColor(int color) {
+            mTextColorArray.put(R.id.tv_message, color);
             return this;
         }
 
@@ -232,11 +256,11 @@ public class CustomDialog extends Dialog {
         }
     }
 
-    public static PhotoBuilder newPhotoBuilder(Context context) {
+    public static PhotoBuilder withPhoto(Context context) {
         return new PhotoBuilder(context);
     }
 
-    public static PhotoBuilder newPhotoBuilder(Context context, int themeResId) {
+    public static PhotoBuilder withPhoto(Context context, int themeResId) {
         return new PhotoBuilder(context, themeResId);
     }
 
@@ -249,7 +273,7 @@ public class CustomDialog extends Dialog {
         public PhotoBuilder(Context context, int themeResId) {
             super(context, themeResId);
             mContentView = LayoutInflater.from(mContext).inflate(R.layout.dialog_camera_photo, null);
-            setWidth(1f);
+            setWidth(MATCH);
             setGravity(Gravity.BOTTOM);
             setBottomIn();
             setOnClickListener(R.id.tv_cancel, new OnCustomClickListener() {

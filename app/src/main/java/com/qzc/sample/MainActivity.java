@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_custom_dialog:
-                CustomDialog.newBuilder(MainActivity.this)
+                CustomDialog.with(MainActivity.this)
                         .setContentView(R.layout.dialog_custom)
                         .setWidthHeight(0.9f, CustomDialog.WRAP)
                         .setGravity(Gravity.CENTER)//默认CENTER
@@ -55,17 +55,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         .show();
                 break;
             case R.id.btn_material_dialog:
-                CustomDialog.newMDBuilder(MainActivity.this)
+                CustomDialog.withMD(MainActivity.this)
                         .setTitle("温馨提示")
                         .setMessage("确定使用这个神奇的库吗？")
                         .setPriority(6)
-                        .setPositiveButtonColor(getColor())
                         .setNegativeButton("再想想", new OnCustomClickListener() {
                             @Override
                             public void onCustomClick(View view, View contentView, Dialog dialog) {
                                 dialog.dismiss();
                             }
                         })
+                        .setPositiveButtonColor(getColor())
                         .setPositiveButton("是的", new OnCustomClickListener() {
                             @Override
                             public void onCustomClick(View view, View contentView, Dialog dialog) {
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         .show();
                 break;
             case R.id.btn_photo_dialog:
-                CustomDialog.newPhotoBuilder(MainActivity.this)
+                CustomDialog.withPhoto(MainActivity.this)
                         .setPriority(9)
                         .setCameraButtonListener(new OnCustomClickListener() {
                             @Override
