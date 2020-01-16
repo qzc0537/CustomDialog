@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         .setGravity(Gravity.CENTER)//默认CENTER
                         .setDimAmount(0.6f)//默认0.5f
                         .setBottomIn()
-                        .setPriority(11)
+                        .setPriority(0)
                         .setCancelStrategy(true, true)//默认true,true
                         .setText(R.id.btn_confirm, "领取")
                         .setTextColor(R.id.btn_confirm, getColor())
@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 CustomDialog.withMD(MainActivity.this)
                         .setTitle("温馨提示")
                         .setMessage("确定使用这个神奇的库吗？")
-                        .setPriority(6)
+                        .setPriority(1)
                         .setNegativeButton("再想想", new OnCustomClickListener() {
                             @Override
                             public void onCustomClick(View view, View contentView, Dialog dialog) {
@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_photo_dialog:
                 CustomDialog.withPhoto(MainActivity.this)
-                        .setPriority(9)
+                        .setPriority(2)
                         .setCameraButtonListener(new OnCustomClickListener() {
                             @Override
                             public void onCustomClick(View view, View contentView, Dialog dialog) {

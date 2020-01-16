@@ -3,9 +3,6 @@ package com.qzc.customdialog.dialog;
 import android.content.DialogInterface;
 import android.util.SparseArray;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 /**
  * created by qinzhichang at 2019/12/08 22:49
  * desc:    对话框管理类
@@ -13,10 +10,11 @@ import java.util.Arrays;
 public class DialogManager {
 
     private static DialogManager mInstance;
-    private static SparseArray<CustomDialog> mDialogArray;
-    private int mPrioritySize = 0;
+    private SparseArray<CustomDialog> mDialogArray;
+    private int mPrioritySize;
 
     private DialogManager() {
+        mDialogArray = new SparseArray<>();
     }
 
     public static DialogManager getInstance() {
@@ -24,7 +22,6 @@ public class DialogManager {
             synchronized (DialogManager.class) {
                 if (mInstance == null) {
                     mInstance = new DialogManager();
-                    mDialogArray = new SparseArray<>();
                 }
             }
         }
@@ -37,7 +34,7 @@ public class DialogManager {
      * @param prioritySize
      */
     public void setPrioritySize(int prioritySize) {
-        this.mPrioritySize = prioritySize;
+        mPrioritySize = prioritySize;
     }
 
     /**
@@ -73,7 +70,7 @@ public class DialogManager {
      * 顺序显示对话框
      */
     public void showPriorityDialog() {
-        if (mDialogArray.size() == 0 || mPrioritySize == 0) return;
+        if (mDialogArray.size() == 0) return;
         int max = findMax();
         CustomDialog dialog = null;
         for (int i = 0; i < mDialogArray.size(); i++) {
