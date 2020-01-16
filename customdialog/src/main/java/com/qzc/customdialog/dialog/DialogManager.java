@@ -14,6 +14,7 @@ public class DialogManager {
 
     private static DialogManager mInstance;
     private static SparseArray<CustomDialog> mDialogArray;
+    private int mPrioritySize = 0;
 
     private DialogManager() {
     }
@@ -31,6 +32,15 @@ public class DialogManager {
     }
 
     /**
+     * 设置优先级对话框的个数
+     *
+     * @param prioritySize
+     */
+    public void setPrioritySize(int prioritySize) {
+        this.mPrioritySize = prioritySize;
+    }
+
+    /**
      * 添加对话框
      *
      * @param dialog
@@ -38,6 +48,9 @@ public class DialogManager {
     public void add(CustomDialog dialog) {
         if (mDialogArray.indexOfKey(dialog.getPriority()) <= -1) {
             mDialogArray.put(dialog.getPriority(), dialog);
+        }
+        if (mDialogArray.size() == mPrioritySize) {
+            showPriorityDialog();
         }
     }
 
@@ -60,7 +73,7 @@ public class DialogManager {
      * 顺序显示对话框
      */
     public void showPriorityDialog() {
-        if (mDialogArray.size() == 0) return;
+        if (mDialogArray.size() == 0 || mPrioritySize == 0) return;
         int max = findMax();
         CustomDialog dialog = null;
         for (int i = 0; i < mDialogArray.size(); i++) {

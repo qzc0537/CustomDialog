@@ -15,9 +15,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="温馨提示"
-        android:textColor="#000000"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        android:textColor="#232323"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/tv_message"
@@ -26,7 +25,7 @@
         android:layout_below="@id/tv_title"
         android:layout_marginTop="12dp"
         android:text="这是内容这是内容这是内容这是内容这是内容"
-        android:textColor="#000000"
+        android:textColor="#373737"
         android:textSize="16sp" />
 
     <LinearLayout
@@ -47,8 +46,8 @@
             android:paddingEnd="6dp"
             android:paddingBottom="10dp"
             android:text="取消"
-            android:textColor="#666666"
-            android:textSize="16sp" />
+            android:textColor="#9D9D9D"
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/tv_confirm"
@@ -62,7 +61,7 @@
             android:paddingBottom="10dp"
             android:text="确定"
             android:textColor="#008577"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
     </LinearLayout>
 
 </RelativeLayout>

@@ -15,7 +15,7 @@
         android:textColor="#333333"
         android:textSize="16sp" />
 
-    <TextView
+    <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#E5E5E5" />
@@ -30,7 +30,7 @@
         android:textColor="#333333"
         android:textSize="16sp" />
 
-    <TextView
+    <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#E5E5E5" />
@@ -42,7 +42,7 @@
         android:background="?android:attr/selectableItemBackground"
         android:gravity="center"
         android:text="取消"
-        android:textColor="#333333"
+        android:textColor="#666666"
         android:textSize="16sp" />
 
 </LinearLayout>
