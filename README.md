@@ -25,7 +25,7 @@ allprojects {
 
 ```
 AndroidX:
-implementation 'com.github.qzc0537:CustomDialog:1.2.4'
+implementation 'com.github.qzc0537:CustomDialog:1.2.5'
 
 Before AndroidX:
 implementation 'com.github.qzc0537:CustomDialog:1.1.8'
@@ -43,12 +43,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.btn_material_dialog).setOnClickListener(this);
         findViewById(R.id.btn_photo_dialog).setOnClickListener(this);
         findViewById(R.id.btn_show_priority).setOnClickListener(this);
+        DialogManager.getInstance().setPrioritySize(3);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-             case R.id.btn_custom_dialog:
+            case R.id.btn_custom_dialog:
                 CustomDialog.with(MainActivity.this)
                         .setContentView(R.layout.dialog_custom)
                         .setWidthHeight(0.9f, CustomDialog.WRAP)
@@ -114,9 +115,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         })
                         .show();
                 break;
-            case R.id.btn_show_priority:
-                DialogManager.getInstance().showPriorityDialog();
-                break;
         }
     }
 
@@ -125,6 +123,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private int getColor() {
-        return ContextCompat.getColor(this, R.color.colorAccent);
+        return ContextCompat.getColor(this, R.color.colorPrimary);
     }
 }
