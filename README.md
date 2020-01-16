@@ -25,7 +25,7 @@ allprojects {
 
 ```
 AndroidX:
-implementation 'com.github.qzc0537:CustomDialog:1.2.5'
+implementation 'com.github.qzc0537:CustomDialog:1.2.6'
 
 Before AndroidX:
 implementation 'com.github.qzc0537:CustomDialog:1.1.8'
