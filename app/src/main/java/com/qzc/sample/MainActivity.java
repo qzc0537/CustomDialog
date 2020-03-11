@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_custom_dialog:
-                CustomDialog.with(MainActivity.this)
+                CustomDialog.with(this)
                         .setContentView(R.layout.dialog_custom)
                         .setWidthHeight(0.9f, CustomDialog.WRAP)
                         .setGravity(Gravity.CENTER)//默认CENTER
