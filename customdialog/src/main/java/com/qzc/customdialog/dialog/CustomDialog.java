@@ -278,7 +278,7 @@ public class CustomDialog extends Dialog {
             setBottomIn();
             setOnClickListener(R.id.tv_cancel, new OnCustomClickListener() {
                 @Override
-                public void onCustomClick(View view, View contentView, Dialog dialog) {
+                public void onCustomClick(View view, View contentView, CustomDialog dialog) {
                     dialog.dismiss();
                 }
             });

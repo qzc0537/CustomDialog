@@ -41,13 +41,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         .setTextColor(R.id.btn_confirm, getColor())
                         .setOnClickListener(R.id.btn_cancel, new OnCustomClickListener() {
                             @Override
-                            public void onCustomClick(View view, View contentView, Dialog dialog) {
+                            public void onCustomClick(View view, View contentView, CustomDialog dialog) {
                                 dialog.dismiss();
                             }
                         })
                         .setOnClickListener(R.id.btn_confirm, new OnCustomClickListener() {
                             @Override
-                            public void onCustomClick(View view, View contentView, Dialog dialog) {
+                            public void onCustomClick(View view, View contentView, CustomDialog dialog) {
                                 dialog.dismiss();
                                 EditText editText = contentView.findViewById(R.id.edt_input);
                                 toast(editText.getText().toString());
@@ -62,14 +62,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         .setPriority(1)
                         .setNegativeButton("再想想", new OnCustomClickListener() {
                             @Override
-                            public void onCustomClick(View view, View contentView, Dialog dialog) {
+                            public void onCustomClick(View view, View contentView, CustomDialog dialog) {
                                 dialog.dismiss();
                             }
                         })
                         .setPositiveButtonColor(getColor())
                         .setPositiveButton("是的", new OnCustomClickListener() {
                             @Override
-                            public void onCustomClick(View view, View contentView, Dialog dialog) {
+                            public void onCustomClick(View view, View contentView, CustomDialog dialog) {
                                 dialog.dismiss();
                             }
                         })
@@ -80,14 +80,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         .setPriority(2)
                         .setCameraButtonListener(new OnCustomClickListener() {
                             @Override
-                            public void onCustomClick(View view, View contentView, Dialog dialog) {
+                            public void onCustomClick(View view, View contentView, CustomDialog dialog) {
                                 dialog.dismiss();
                                 toast("拍照");
                             }
                         })
                         .setPhotoButtonListener(new OnCustomClickListener() {
                             @Override
-                            public void onCustomClick(View view, View contentView, Dialog dialog) {
+                            public void onCustomClick(View view, View contentView, CustomDialog dialog) {
                                 dialog.dismiss();
                                 toast("相册");
                             }
