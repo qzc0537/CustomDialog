@@ -1,13 +1,14 @@
 package com.qzc.sample;
 
-import android.app.Dialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import com.qzc.customdialog.dialog.CustomDialog;
 import com.qzc.customdialog.dialog.DialogManager;
 import com.qzc.customdialog.interfaces.OnCustomClickListener;
@@ -56,27 +57,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         .show();
                 break;
             case R.id.btn_material_dialog:
-                CustomDialog.withMD(MainActivity.this)
+                CustomDialog.withMD(this)
                         .setTitle("温馨提示")
-                        .setMessage("确定使用这个神奇的库吗？")
-                        .setPriority(1)
+                        .setMessage("确定使用这个哇塞的库吗？")
                         .setNegativeButton("再想想", new OnCustomClickListener() {
                             @Override
                             public void onCustomClick(View view, View contentView, CustomDialog dialog) {
                                 dialog.dismiss();
                             }
                         })
-                        .setPositiveButtonColor(getColor())
+//                        .setPositiveButtonColor(getColor())
                         .setPositiveButton("是的", new OnCustomClickListener() {
                             @Override
                             public void onCustomClick(View view, View contentView, CustomDialog dialog) {
                                 dialog.dismiss();
                             }
                         })
+                        .setPriority(1)
                         .show();
                 break;
             case R.id.btn_photo_dialog:
-                CustomDialog.withPhoto(MainActivity.this)
+                CustomDialog.withPhoto(this)
                         .setPriority(2)
                         .setCameraButtonListener(new OnCustomClickListener() {
                             @Override

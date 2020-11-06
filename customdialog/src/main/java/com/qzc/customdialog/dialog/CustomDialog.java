@@ -7,6 +7,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -143,8 +144,6 @@ public class CustomDialog extends Dialog {
     }
 
 
-
-
     public static Builder with(Context context) {
         return new Builder(context);
     }
@@ -193,16 +192,12 @@ public class CustomDialog extends Dialog {
         public MDBuilder(Context context, int themeResId) {
             super(context, themeResId);
             mContentView = LayoutInflater.from(mContext).inflate(R.layout.dialog_material, null);
+            setWidthHeight(0.8f, -2);
             setVisibleOrGone(R.id.tv_title, false);
             setVisibleOrGone(R.id.tv_message, false);
             setVisibleOrGone(R.id.tv_cancel, false);
             setVisibleOrGone(R.id.tv_confirm, false);
-            setWidthHeight(0.85f, -2);
-        }
-
-        public MDBuilder setPriority(int priority) {
-            mPriority = priority;
-            return this;
+            setPositiveButtonColor(getColorPrimary());
         }
 
         public MDBuilder setTitle(CharSequence charSequence) {
@@ -212,10 +207,22 @@ public class CustomDialog extends Dialog {
             return this;
         }
 
+        public MDBuilder setTitle(int strId) {
+            if (strId == 0) return this;
+            setTitle(mContext.getString(strId));
+            return this;
+        }
+
         public MDBuilder setMessage(CharSequence charSequence) {
             if (TextUtils.isEmpty(charSequence)) return this;
             setVisibleOrGone(R.id.tv_message, true);
             mTextArray.put(R.id.tv_message, charSequence);
+            return this;
+        }
+
+        public MDBuilder setMessage(int strId) {
+            if (strId == 0) return this;
+            setMessage(mContext.getString(strId));
             return this;
         }
 
@@ -227,11 +234,23 @@ public class CustomDialog extends Dialog {
             return this;
         }
 
+        public MDBuilder setNegativeButton(int strId, OnCustomClickListener listener) {
+            if (strId == 0) return this;
+            setNegativeButton(mContext.getString(strId), listener);
+            return this;
+        }
+
         public MDBuilder setPositiveButton(CharSequence charSequence, OnCustomClickListener listener) {
             if (TextUtils.isEmpty(charSequence)) return this;
             setVisibleOrGone(R.id.tv_confirm, true);
             mTextArray.put(R.id.tv_confirm, charSequence);
             mClickListenerArray.put(R.id.tv_confirm, listener);
+            return this;
+        }
+
+        public MDBuilder setPositiveButton(int strId, OnCustomClickListener listener) {
+            if (strId == 0) return this;
+            setPositiveButton(mContext.getString(strId), listener);
             return this;
         }
 
@@ -253,6 +272,12 @@ public class CustomDialog extends Dialog {
         public MDBuilder setPositiveButtonColor(int color) {
             mTextColorArray.put(R.id.tv_confirm, color);
             return this;
+        }
+
+        public int getColorPrimary() {
+            TypedValue typedValue = new TypedValue();
+            mContext.getTheme().resolveAttribute(R.attr.colorPrimary, typedValue, true);
+            return typedValue.data;
         }
     }
 

@@ -33,22 +33,22 @@ import com.qzc.customdialog.lifecycle.LifeFragment;
  */
 public class BaseBuilder {
 
-    public Context mContext;
-    public View mContentView;
-    private ViewHelper mViewHelper;
-    private CustomDialog mDialog;
-    private int mThemeResId;  //主题
-    public boolean mCancelable = true;  //点击返回键是否关闭
-    public boolean mCancelableOutside = true;  //点击外部是否关闭
-    private int mWidth = ViewGroup.LayoutParams.WRAP_CONTENT;
-    private int mHeight = ViewGroup.LayoutParams.WRAP_CONTENT;
-    private float mWidthRatio = 0f;  //dialog宽度占屏幕宽度的比例
-    private float mHeightRatio = 0f;  //dialog高度占屏幕高度的比例
-    private float mDimAmount = 0.5f;  //dialog背景亮度
-    private int mGravity = Gravity.CENTER;  //dialog位置
-    private int mAnimation; //dialog动画
-    private int mOffsetX;      //dialog在X轴的偏移量（Gravity需要设置Left）
-    private int mOffsetY;      //dialog在Y轴的偏移量（Gravity需要设置Top）
+    protected Context mContext;
+    protected View mContentView;
+    protected ViewHelper mViewHelper;
+    protected CustomDialog mDialog;
+    protected int mThemeResId;  //主题
+    protected boolean mCancelable = true;  //点击返回键是否关闭
+    protected boolean mCancelableOutside = true;  //点击外部是否关闭
+    protected int mWidth = ViewGroup.LayoutParams.WRAP_CONTENT;
+    protected int mHeight = ViewGroup.LayoutParams.WRAP_CONTENT;
+    protected float mWidthRatio = 0f;  //dialog宽度占屏幕宽度的比例
+    protected float mHeightRatio = 0f;  //dialog高度占屏幕高度的比例
+    protected float mDimAmount = 0.5f;  //dialog背景亮度
+    protected int mGravity = Gravity.CENTER;  //dialog位置
+    protected int mAnimation; //dialog动画
+    protected int mOffsetX;      //dialog在X轴的偏移量（Gravity需要设置Left）
+    protected int mOffsetY;      //dialog在Y轴的偏移量（Gravity需要设置Top）
     protected int mPriority = -1;
 
     SparseArray<CharSequence> mTextArray = new SparseArray<>();
