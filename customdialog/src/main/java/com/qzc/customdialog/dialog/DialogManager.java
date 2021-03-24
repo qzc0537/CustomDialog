@@ -59,8 +59,9 @@ public class DialogManager {
     public int findMax() {
         int max = 0;
         for (int i = 0; i < mDialogArray.size(); i++) {
-            if (mDialogArray.keyAt(i) > max) {
-                max = mDialogArray.keyAt(i);
+            int priority = mDialogArray.valueAt(i).getPriority();
+            if (priority > max) {
+                max = priority;
             }
         }
         return max;

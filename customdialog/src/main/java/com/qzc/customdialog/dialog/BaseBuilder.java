@@ -98,9 +98,9 @@ public class BaseBuilder {
                 FragmentActivity activity = (FragmentActivity) mContext;
                 FragmentManager manager = activity.getSupportFragmentManager();
                 FragmentTransaction transaction = manager.beginTransaction();
-                if (manager.findFragmentByTag("Lifecycle") == null) {
+                if (manager.findFragmentByTag("LifecycleFrag") == null) {
                     LifeFragment fragment = LifeFragment.getInstance();
-                    transaction.add(fragment, "Lifecycle").commitAllowingStateLoss();
+                    transaction.add(fragment, "LifecycleFrag").commitAllowingStateLoss();
                 }
                 mDialog.setPriority(mPriority);
                 mDialog.setHostName(activity.getLocalClassName());

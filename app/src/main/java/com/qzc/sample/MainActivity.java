@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_photo_dialog:
                 CustomDialog.withPhoto(this)
-                        .setPriority(2)
+                        .setPriority(8)
                         .setCameraButtonListener(new OnCustomClickListener() {
                             @Override
                             public void onCustomClick(View view, View contentView, CustomDialog dialog) {
