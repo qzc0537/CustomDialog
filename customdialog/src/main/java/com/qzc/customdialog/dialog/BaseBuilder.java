@@ -124,12 +124,12 @@ public class BaseBuilder {
 
             WindowManager.LayoutParams lp = window.getAttributes();
             if (mWidthRatio != 0) {
-                lp.width = (int) (Resources.getSystem().getDisplayMetrics().widthPixels * mWidthRatio);
+                lp.width = (int) (mContext.getResources().getDisplayMetrics().widthPixels * mWidthRatio);
             } else {
                 lp.width = mWidth;
             }
             if (mHeightRatio != 0) {
-                lp.height = (int) (Resources.getSystem().getDisplayMetrics().heightPixels * mHeightRatio);
+                lp.height = (int) (mContext.getResources().getDisplayMetrics().heightPixels * mHeightRatio);
             } else {
                 lp.height = mHeight;
             }
