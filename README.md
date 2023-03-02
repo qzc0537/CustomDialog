@@ -28,7 +28,7 @@ AndroidX:
 implementation 'com.github.qzc0537:CustomDialog:latestVersion'
 
 Before AndroidX:
-implementation 'com.github.qzc0537:CustomDialog:1.1.8'
+implementation 'com.github.qzc0537:CustomDialog:1.1.9'
 ```
 
 3.愉快的使用：

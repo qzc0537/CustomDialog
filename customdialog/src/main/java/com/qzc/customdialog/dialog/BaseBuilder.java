@@ -84,15 +84,13 @@ public class BaseBuilder {
             mDialog.init(this);
             mViewHelper = mDialog.getViewHelper();
             attachView();
+            initWindow(mDialog);
         }
         return mDialog;
     }
 
     public CustomDialog show() {
-        if (mDialog == null) {
-            build();
-        }
-        initWindow(mDialog);
+        mDialog = build();
         if (mPriority > -1) {
             if (mContext instanceof FragmentActivity) {
                 FragmentActivity activity = (FragmentActivity) mContext;
